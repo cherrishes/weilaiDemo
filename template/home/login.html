@@ -13,11 +13,21 @@
 {#  <link rel="stylesheet" href="{% static 'css/simple-line-icons.css' %}" type="text/css" />#}
 {#  <link rel="stylesheet" href="{% static 'css/font.css' %}" type="text/css" />#}
   <link rel="stylesheet" href="{% static 'css/app.css' %}" type="text/css" />
+    <style>
+        .m-r-n-lg{
+            margin-right: 0px;
+        }
+        .ui-error-box{
+            text-align: center;
+            color: red;
+        }
+    </style>
     <!--[if lt IE 9]>
     <script src="js/ie/html5shiv.js"></script>
     <script src="js/ie/respond.min.js"></script>
     <script src="js/ie/excanvas.js"></script>
   <![endif]-->
+
 </head>
 <body class="bg-info dker">
   <section id="content" class="m-t-lg wrapper-md animated fadeInUp">
@@ -35,10 +45,11 @@
              <input type="password" placeholder="Password" class="form-control rounded input-lg text-center no-border" name="password">
           </div>
           <button id="BtnSave" type="submit" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded"><i class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">Sign in</span></button>
+          {{ msg|safe }}
           <div class="text-center m-t m-b"><a href="#"><small>Forgot password?</small></a></div>
           <div class="line line-dashed"></div>
           <p class="text-muted text-center"><small>Do not have an account?</small></p>
-          <a href="signup.html" class="btn btn-lg btn-info btn-block rounded">Create an account</a>
+          <a href="#" class="btn btn-lg btn-info btn-block rounded">Create an account</a>
           </form>
       </section>
     </div>
