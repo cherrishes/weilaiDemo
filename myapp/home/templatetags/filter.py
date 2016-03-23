@@ -21,6 +21,7 @@ def dw_get(obj, key):
 register.filter(dw_get)
 
 
+@register.filter
 def wl_convtimespan(obj):
     """
     时间戳字符串转为日期字符串
@@ -40,6 +41,7 @@ def wl_convtimespan(obj):
 register.filter(wl_convtimespan)
 
 
+@register.filter
 def wlutc2local(obj):
     """
     将utc时间转为本地时间
