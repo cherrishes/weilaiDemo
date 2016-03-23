@@ -21,12 +21,20 @@ def login(request):
     if request.method == 'POST':
         user_name = request.POST.get('user_name', '')
         password = request.POST.get('password', '')
-        u = User.objects.filter(user_account=user_name, user_password=password)[0]
-        if u:
-            request.session[SESSION_USER_ID] = user_name
-            return HttpResponseRedirect('/home')
-        else:
-            pass
+        try:
+            u = User.objects.filter(user_account=user_name, user_password=password)[0]
+            if u:
+                request.session[SESSION_USER_ID] = user_name
+                return HttpResponseRedirect('/home')
+            else:
+                msg = "<div class='ui-error-box' ><b></b><p>用户名或密码错误</P></div>"
+                return render(request, 'home/login.html', locals())
+
+        except Exception as e:
+            print(e)
+            logging.getLogger('').info('')
+        msg = "<div class='ui-error-box' ><b></b><p>用户名或密码错误</P></div>"
+        return render(request, 'home/login.html', locals())
     user_id = request.session.get(SESSION_USER_ID)
     if user_id:
         return HttpResponseRedirect('/home')
