@@ -3,7 +3,7 @@
 {% load filter %}
 {% block title %}所有任务{% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'css/icono.min.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/icono.min.css' %}">#}
 
     <style>
     .content-block-title{
@@ -76,19 +76,19 @@
     .task-unfinish,.task-finished{
         padding-left: 30px!important;
     }
-    .icono-play{
-        margin: 6px 14px 6px 3px;
-        color: #c7c7c7;
-        transform: rotate(90deg);
-        -moz-transform:rotate(90deg);
-        -webkit-transform:rotate(90deg);
-    }
-    .icono-play-nomal{
-        margin: 6px 14px 6px 3px;
+    .icon-caret{
+        margin: 6px 10px 6px 3px;
         color: #c7c7c7;
         transform: rotate(0deg);
         -moz-transform:rotate(0deg);
         -webkit-transform:rotate(0deg);
+    }
+    .icon-caret-right{
+        margin: 6px 14px 6px 3px;
+        color: #c7c7c7;
+        transform: rotate(-90deg);
+        -moz-transform:rotate(-90deg);
+        -webkit-transform:rotate(-90deg);
     }
     .row{
         margin-left: -2px;
@@ -99,6 +99,10 @@
         right: 10px;
         top: 10px;
         display: none;
+    }
+    .icon-clock{
+        padding-right: 3px;
+        padding-bottom: 2px;
     }
     </style>
 
@@ -117,7 +121,7 @@
         <a class="button button-fill button-primary col-20" id="BtnSaveTask">确认</a>
       </div>
 
-    <div class="content-block-title" id="task-doing"><i class="icono-play"></i>进行中<small class="task-number">{{ un_finish_len|safe }}</small></div>
+    <div class="content-block-title" id="task-doing"><i class="icon icon-caret"></i>进行中<small class="task-number">{{ un_finish_len|safe }}</small></div>
     <div class="list-block media-list">
       <ul class="task-unfinish">
           {% for i in un_finish_plan %}
@@ -135,7 +139,7 @@
                       {% elif i.plan_type == 3 %}
                         <div class="item-after"><img src="{% static 'img/folder_mail.png' %}"></div>
                       {% endif %}
-                    <div class="item-border"> <small class="item-number">#{{ i.plan_id }}</small><small class="item-name">{{ i.user_id.user_nickname }}</small><small class="item-time"><i class="icono-clock"></i>{{ i.create_date|wlutc2local }}</small></div>
+                    <div class="item-border"> <small class="item-number">#{{ i.plan_id }}</small><small class="item-name">{{ i.user_id.user_nickname }}</small><small class="item-time"><i class="icon icon-clock"></i>{{ i.create_date|wlutc2local }}</small></div>
                   </div>
 
                 </div>
@@ -147,7 +151,7 @@
       </ul>
     </div>
 
-    <div class="content-block-title" id="task-done"><i class="icono-play"></i> 已完成<small class="task-number">{{ finish_len|safe }}</small></div>
+    <div class="content-block-title" id="task-done"><i class="icon icon-caret"></i> 已完成<small class="task-number">{{ finish_len|safe }}</small></div>
 
     <div class="list-block media-list">
       <ul class="task-finished">
@@ -167,7 +171,7 @@
                       {% elif i.plan_type == 3 %}
                         <div class="item-after"><img src="{% static 'img/folder_mail.png' %}"></div>
                       {% endif %}
-                    <div class="item-border"> <small class="item-number">#{{ i.plan_id }}</small><small class="item-name">{{ i.user_id.user_nickname }}</small><small class="item-time"><i class="icono-clock"></i>{{ i.create_date|wlutc2local }}</small></div>
+                    <div class="item-border"> <small class="item-number">#{{ i.plan_id }}</small><small class="item-name">{{ i.user_id.user_nickname }}</small><small class="item-time"><i class="icon icon-clock"></i>{{ i.create_date|wlutc2local }}</small></div>
                   </div>
 
                 </div>
@@ -223,32 +227,33 @@
     $(function(){
         $("#panel-first").addClass("panel-native");
         bindCheckList();
+        // 进行中div点击
         $("#task-doing").bind('tap', function(){
            $(".task-unfinish").toggle();
             $(this).children('small').toggle();
 
-            if ( $(this).children('i').hasClass('icono-play-nomal')){
+            if ( $(this).children('i').hasClass('icon-caret-right')){
                 // 让箭头向下
-                $(this).children('i').addClass('icono-play').removeClass('icono-play-nomal');
+                $(this).children('i').addClass('icon-caret').removeClass('icon-caret-right');
                 $(this).next('div').removeClass('item-hide-type')
             }
             else{
                 // 让箭头向右
-                $(this).children('i').addClass('icono-play-nomal');
+                $(this).children('i').addClass('icon-caret-right');
                 $(this).next('div').addClass('item-hide-type')
             }
         });
         $("#task-done").bind('tap', function(){
            $(".task-finished").toggle();
             $(this).children('small').toggle();
-            if ( $(this).children('i').hasClass('icono-play-nomal')){
+            if ( $(this).children('i').hasClass('icon-caret-right')){
                 // 让箭头向下
-                $(this).children('i').addClass('icono-play').removeClass('icono-play-nomal');
+                $(this).children('i').addClass('icon-caret').removeClass('icon-caret-right');
                 $(this).next('div').removeClass('item-hide-type')
             }
             else{
                 // 让箭头向右
-                $(this).children('i').addClass('icono-play-nomal');
+                $(this).children('i').addClass('icon-caret-right');
                 $(this).next('div').addClass('item-hide-type')
             }
         });
