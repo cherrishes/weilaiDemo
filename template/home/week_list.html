@@ -1,0 +1,136 @@
+{% extends "home/base.html" %}
+{% load staticfiles %}
+{% block title %}周排行榜{% endblock %}
+{% block styles %}
+    <style>
+        .item-content{
+            position: relative;
+        }
+        .list-block{
+            margin: 0px;
+        }
+        .item-title-row{
+            line-height: 40px;
+        }
+    .item-after{
+        margin-top: 8px;
+        width: 30px;
+        height: 30px;
+        position: relative;
+
+    }
+    .item-after img{
+        width: 20px;
+        height: 20px;
+        margin: auto;
+    }
+    .badge{
+        position: absolute;
+        top: -10px;
+        left: 3px;
+        color: #888;
+        background: #fff;
+        padding: 0px;
+    }
+    </style>
+
+
+{% endblock %}
+
+{% block pagetitle %}<h1 class="title">周排行榜</h1>{% endblock %}
+{% block content %}
+<div class="content">
+
+  <div class="list-block media-list">
+      <ul>
+        <li>
+          <div class="item-content">
+            <div class="item-media"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44"></div>
+            <div class="item-inner">
+              <div class="item-title-row">
+                <div class="item-title">上周计划完成84%</div>
+
+                <div class="item-after"><img src="{% static 'img/White_heart.png' %}"><span class="badge">200</span></div>
+              </div>
+
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content">
+            <div class="item-media"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44"></div>
+            <div class="item-inner">
+              <div class="item-title-row">
+                <div class="item-title">上周计划完成78%</div>
+                <div class="item-after"><img src="{% static 'img/White_heart.png' %}"><span class="badge">&nbsp;20</span></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content">
+            <div class="item-media"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44"></div>
+            <div class="item-inner">
+              <div class="item-title-row">
+                <div class="item-title">上周计划完成72%</div>
+                <div class="item-after"><img src="{% static 'img/White_heart.png' %}"><span class="badge"> &nbsp;&nbsp;2</span></div>
+              </div>
+
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content">
+            <div class="item-media"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44"></div>
+            <div class="item-inner">
+              <div class="item-title-row">
+                <div class="item-title">上周计划完成67%</div>
+                <div class="item-after"><img src="{% static 'img/White_heart.png' %}"></div>
+              </div>
+
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content">
+            <div class="item-media"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44"></div>
+            <div class="item-inner">
+              <div class="item-title-row">
+                <div class="item-title">上周计划完成64%</div>
+                <div class="item-after"><img src="{% static 'img/White_heart.png' %}"></div>
+              </div>
+
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="item-content">
+            <div class="item-media"><img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44"></div>
+            <div class="item-inner">
+              <div class="item-title-row">
+                <div class="item-title">上周计划完成61%</div>
+                <div class="item-after"><img src="{% static 'img/White_heart.png' %}"></div>
+              </div>
+
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+{% endblock %}
+{% block script %}
+    <script>
+    var red_heart ="{% static 'img/Red_heart.png' %}" ;
+    $(function(){
+        $(".item-after").bind('click',function(){
+{#            alert('hah');#}
+{#            console.log($(this).children('img')[0].src);#}
+{#            alert($(this).children('img').src);#}
+            $(this).children('img')[0].src=red_heart
+        })
+    })
+    </script>
+{% endblock %}

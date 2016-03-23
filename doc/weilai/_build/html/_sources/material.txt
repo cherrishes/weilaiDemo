@@ -1,0 +1,8 @@
+相关资料
+=======
+
+.. toctree::
+   :maxdepth: 2
+
+   material/xmpp
+   material/devicewiki

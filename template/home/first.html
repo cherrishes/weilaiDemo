@@ -1,0 +1,48 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>微来科技</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <style>
+        .body-ui{
+            margin: 0px;
+        }
+        .content{
+            width: 100%;
+            height: 100%;
+{#            background: url("{% static 'img/first.jpg' %}") no-repeat;#}
+{#            background-position: center;#}
+{#            background-size: 100%;#}
+        }
+        .content img{
+            width: 100%;
+            height: 100%;
+        }
+        .footer{
+            color: #333;
+            text-align: center;
+        }
+    </style>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.js' charset='utf-8'></script>
+</head >
+<body class='body-ui'>
+
+<div class="content">
+    <img src="{% static 'img/first.jpg' %}">
+</div>
+
+<div class="cli_dialog footer"><p>
+        <small>Make time for more fun<br>Copyright©{% now 'Y' %}{% if h %} {{ h.copyright }}{% else %} 微来科技{% endif %}</small>
+      </p></div>
+</body>
+<script>
+    setTimeout(function(){
+        window.location.href='/home'
+    },1000)
+</script>
+</html>

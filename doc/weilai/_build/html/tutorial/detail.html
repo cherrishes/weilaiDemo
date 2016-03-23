@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>详情页面 &mdash; smartsys 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="top" title="smartsys 1.0 documentation" href="../index.html" />
+    <link rel="up" title="使用教程" href="../tutorial.html" />
+    <link rel="next" title="常用工具" href="tools.html" />
+    <link rel="prev" title="登录会话与权限" href="auth.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+
+  </head>
+  <body role="document">
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../index.html">smartsys 1.0 documentation</a> &raquo;</li>
+          <li><a href="../tutorial.html" accesskey="U">使用教程</a> &raquo;</li> 
+      </ul>
+    </div>
+    
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>详情页面<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>设备详情<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>通过统一的中转页面进行权限控制和具体的页面跳转</li>
+<li>在需要跳转到详情页的链接中拼接上设备编号或者设备别名即可</li>
+</ul>
+<p>使用示例</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;a href=&quot;/device/device/detail/C893464C67B2&quot;&gt;进入设备详细页面&lt;/a&gt;
+# 或者
+&lt;a href=&quot;{% url &quot;device_detail&quot; &quot;XYJ0000001&quot; %}&quot;&gt;进入设备详细页面&lt;/a&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>订单详情<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>主要用于订单相关页面，点击订单号后跳转的详情页面</li>
+</ul>
+<p>使用示例</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;a href=&quot;/device/account/order_detail/14513116900375473&quot;&gt;进入订单详细页面&lt;/a&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>用户详情<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>主要用于用户相关页面，点击用户id后跳转的详情页面</li>
+</ul>
+<p>使用示例</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;a href=&quot;/device/user/user_detail/2_o3rSQwxqIkYug8hQaMr4lU-_gt7U&quot;&gt;进入用户详请页面&lt;/a&gt;
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">详情页面</a><ul>
+<li><a class="reference internal" href="#id2">设备详情</a></li>
+<li><a class="reference internal" href="#id3">订单详情</a></li>
+<li><a class="reference internal" href="#id4">用户详情</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="auth.html"
+                        title="previous chapter">登录会话与权限</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tools.html"
+                        title="next chapter">常用工具</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tools.html" title="常用工具"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="auth.html" title="登录会话与权限"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, 53iq.
+    </div>
+  </body>
+</html>

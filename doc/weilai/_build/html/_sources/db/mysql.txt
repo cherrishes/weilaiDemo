@@ -1,0 +1,788 @@
+mysql
+===============
+
+基本信息
+--------
+
+* 主机：192.168.0.62
+* 端口：3306
+* 用户：root
+* 密码：53iq.com
+* 数据库：ebdb_smartsys
+
+
+表结构
+-------
+
+.. code-block:: sql
+
+    -- ----------------------------
+    -- Table structure for dwt_app
+    -- ----------------------------
+    DROP TABLE IF EXISTS `dwt_app`;
+    CREATE TABLE `dwt_app` (
+      `dwf_app_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'app编号',
+      `dwf_app_name` varchar(128) NOT NULL COMMENT 'app名称(唯一)',
+      `dwf_app_alias` varchar(64) DEFAULT NULL COMMENT 'app别名（可重复）',
+      `dwf_app_type` int(3) NOT NULL DEFAULT '1' COMMENT 'app类型（1表示内部开发）',
+      `dwf_app_currversion` int(11) DEFAULT NULL COMMENT '当前版本',
+      `dwf_app_config_path` varchar(1024) NOT NULL COMMENT 'app配置文件路径',
+      `dwf_app_iconurl` text COMMENT 'app图标地址',
+      `dwf_app_createdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      `dwf_app_is_encrypt` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否加密（0：不加密，1：加密）',
+      `dwf_app_key_code` varchar(64) NOT NULL DEFAULT '0' COMMENT '查看码',
+      `dwf_app_is_has_ios` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否有ios版本（0：没有，1：有）',
+      `dwf_app_ios_url` varchar(2048) DEFAULT NULL COMMENT 'ios下载地址',
+      PRIMARY KEY (`dwf_app_id`),
+      UNIQUE KEY `Index_1` (`dwf_app_name`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='应用程序表';
+
+    -- ----------------------------
+    -- Table structure for dwt_app_version
+    -- ----------------------------
+    DROP TABLE IF EXISTS `dwt_app_version`;
+    CREATE TABLE `dwt_app_version` (
+      `dwf_av_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '版本编号',
+      `dwf_app_id` int(11) DEFAULT NULL COMMENT 'app编号',
+      `dwf_av_version_code` varchar(256) NOT NULL COMMENT '版本号',
+      `dwf_av_version_name` varchar(256) NOT NULL COMMENT '版本名称',
+      `dwf_av_download_url` text COMMENT '下载地址',
+      `dwf_av_is_notify` varchar(16) NOT NULL DEFAULT 'yes' COMMENT '是否提示(yes提示，no不提示)',
+      `dwf_av_is_force` varchar(16) NOT NULL DEFAULT 'no' COMMENT '是否强制升级(yes强制，no不强制)',
+      `dwf_av_size` varchar(32) DEFAULT NULL COMMENT '文件大小(bytes)',
+      `dwf_av_remarks` text COMMENT '更新备注',
+      `dwf_av_updatedate` datetime NOT NULL COMMENT '更新时间',
+      `dwf_av_createdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      `dwf_av_md5` varchar(128) NOT NULL COMMENT '版本签名',
+      `dwf_file_md5` varchar(128) NOT NULL COMMENT 'apk文件md5值',
+      `dwf_av_type` int(3) DEFAULT '0' COMMENT '版本类型（0：外部版本，1：内部版本）',
+      `dwf_min_version` int(11) DEFAULT '0',
+      PRIMARY KEY (`dwf_av_id`),
+      KEY `FK_Reference_1` (`dwf_app_id`),
+      CONSTRAINT `FK_Reference_1` FOREIGN KEY (`dwf_app_id`) REFERENCES `dwt_app` (`dwf_app_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster AUTO_INCREMENT=216 DEFAULT CHARSET=utf8 COMMENT='app版本信息';
+
+    -- ----------------------------
+    -- Table structure for ebt_account_money
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_account_money`;
+    CREATE TABLE `ebt_account_money` (
+      `ebf_am_user_id` varchar(128) NOT NULL COMMENT '用户帐号',
+      `ebf_am_account_type` int(3) NOT NULL DEFAULT '1' COMMENT '账户类型（1：普通账户，2：vip）',
+      `ebf_am_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '余额',
+      `ebf_am_is_forbid` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否禁用（0：未禁用，1：禁用）',
+      `ebf_am_create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      PRIMARY KEY (`ebf_am_user_id`)
+    ) ENGINE=ndbcluster DEFAULT CHARSET=utf8 COMMENT='账户余额表';
+
+    -- ----------------------------
+    -- Table structure for ebt_agency
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_agency`;
+    CREATE TABLE `ebt_agency` (
+      `ebf_agency_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '代理商编号',
+      `ebf_factory_id` int(11) DEFAULT NULL COMMENT '厂家编号',
+      `ebf_agency_name` varchar(64) DEFAULT NULL COMMENT '代理商名称',
+      `ebf_agency_remarks` text COMMENT '备注',
+      `ebf_agency_uid` varchar(512) DEFAULT NULL COMMENT '唯一标识',
+      `ebf_agency_address` varchar(1024) DEFAULT NULL COMMENT '地址',
+      `ebf_agency_contact` varchar(32) DEFAULT NULL COMMENT '联系方式',
+      PRIMARY KEY (`ebf_agency_id`),
+      KEY `FK_Reference_4` (`ebf_factory_id`),
+      CONSTRAINT `ebt_agency_ibfk_1` FOREIGN KEY (`ebf_factory_id`) REFERENCES `ebt_factory` (`ebf_factory_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='代理商表';
+
+    -- ----------------------------
+    -- Table structure for ebt_brand
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_brand`;
+    CREATE TABLE `ebt_brand` (
+      `ebf_brand_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '品牌编号',
+      `ebf_brand_factory_id` int(11) DEFAULT NULL COMMENT '厂家编号',
+      `ebf_brand_name` varchar(64) DEFAULT NULL COMMENT '品牌名称',
+      PRIMARY KEY (`ebf_brand_id`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='产品品牌表';
+
+    -- ----------------------------
+    -- Table structure for ebt_category
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_category`;
+    CREATE TABLE `ebt_category` (
+      `ebf_category_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '产品类别编号',
+      `ebf_brand_id` int(11) DEFAULT NULL COMMENT '品牌编号',
+      `ebf_category_name` varchar(64) DEFAULT NULL COMMENT '列表名称',
+      PRIMARY KEY (`ebf_category_id`),
+      KEY `FK_Reference_16` (`ebf_brand_id`),
+      CONSTRAINT `FK_Reference_16` FOREIGN KEY (`ebf_brand_id`) REFERENCES `ebt_brand` (`ebf_brand_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='产品型号表';
+
+    -- ----------------------------
+    -- Table structure for ebt_charge_record
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_charge_record`;
+    CREATE TABLE `ebt_charge_record` (
+      `ebf_cr_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '充值记录编号',
+      `ebf_cr_user_id` varchar(125) NOT NULL COMMENT '充值的帐号',
+      `ebf_cr_type` int(3) NOT NULL DEFAULT '1' COMMENT '充值类型(1:直接充值，2：邀请码收益)',
+      `ebf_cr_trade_no` varchar(128) NOT NULL COMMENT '订单号（邀请码收益的为产生收益的订单号）',
+      `ebf_cr_pay_account` varchar(128) DEFAULT NULL COMMENT '付款者支付帐号',
+      `ebf_cr_status` int(3) NOT NULL DEFAULT '0' COMMENT '充值状态（0：未知，1：成功）',
+      `ebf_cr_pay_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '充值金额',
+      `ebf_cr_rate` decimal(10,2) NOT NULL DEFAULT '1.00' COMMENT '优惠比率',
+      `ebf_cr_account_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '账面金额（充值金额*优惠比率）',
+      `ebf_cr_update_date` datetime DEFAULT NULL COMMENT '更新时间',
+      `ebf_cr_create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      PRIMARY KEY (`ebf_cr_id`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=145 DEFAULT CHARSET=utf8 COMMENT='账户充值记录表';
+
+    -- ----------------------------
+    -- Table structure for ebt_commodity
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_commodity`;
+    CREATE TABLE `ebt_commodity` (
+      `ebf_commodity_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品ID',
+      `ebf_commodity_outer_id` varchar(128) DEFAULT NULL,
+      `ebf_commodity_title` varchar(128) DEFAULT NULL COMMENT '商品名称',
+      `ebf_commodity_price` decimal(10,2) DEFAULT NULL COMMENT '商品价格',
+      `ebf_commodity_url` varchar(556) DEFAULT NULL COMMENT '商品的商城链接（json数据）',
+      `ebf_commodity_image` varchar(128) DEFAULT NULL COMMENT '商品描述图片',
+      `ebf_commodity_desc` varchar(556) DEFAULT NULL COMMENT '商品描述',
+      `ebf_factory_id` int(11) DEFAULT '0' COMMENT '厂商外键',
+      `ebf_commodity_order_num` int(11) DEFAULT '0' COMMENT '商品序号',
+      `ebf_is_directional` int(3) DEFAULT '0' COMMENT '商品是否指定销售范围',
+      `dt_id` int(11) DEFAULT NULL,
+      `ebf_commodity_county` varchar(64) DEFAULT NULL COMMENT '售卖区县',
+      `ebf_commodity_city` varchar(32) DEFAULT NULL,
+      `ebf_commodity_province` varchar(32) DEFAULT NULL,
+      `ebf_commodity_date` datetime DEFAULT NULL COMMENT '商品创建时间',
+      PRIMARY KEY (`ebf_commodity_id`),
+      KEY `ebf_commodity_factory` (`ebf_factory_id`),
+      KEY `ebt_commodity_history_ibfk_2` (`dt_id`),
+      CONSTRAINT `ebt_commodity_history_ibfk_2` FOREIGN KEY (`dt_id`) REFERENCES `ebt_device_type` (`dt_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `ebf_commodity_factory` FOREIGN KEY (`ebf_factory_id`) REFERENCES `ebt_factory` (`ebf_factory_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+
+    -- ----------------------------
+    -- Table structure for ebt_commodity_history
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_commodity_history`;
+    CREATE TABLE `ebt_commodity_history` (
+      `ebf_commodity_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品ID',
+      `ebf_commodity_outer_id` varchar(128) NOT NULL COMMENT '商品外部ID',
+      `ebf_commodity_title` varchar(128) DEFAULT NULL COMMENT '商品名称',
+      `ebf_commodity_price` decimal(10,2) DEFAULT NULL COMMENT '商品价格',
+      `ebf_commodity_url` varchar(556) DEFAULT NULL COMMENT '商品的商城链接（json数据）',
+      `ebf_commodity_image` varchar(128) DEFAULT NULL COMMENT '商品描述图片',
+      `ebf_commodity_desc` varchar(556) DEFAULT NULL COMMENT '商品描述',
+      `ebf_factory_id` int(11) DEFAULT '0' COMMENT '厂商外键',
+      `ebf_commodity_order_num` int(11) DEFAULT '0' COMMENT '商品序号',
+      `ebf_is_directional` int(3) DEFAULT '0' COMMENT '商品是否指定销售范围',
+      `dt_id` int(11) DEFAULT NULL COMMENT '售卖针对设备类型外键',
+      `ebf_commodity_county` varchar(64) DEFAULT NULL COMMENT '售卖区县',
+      `ebf_commodity_city` varchar(32) DEFAULT NULL COMMENT '售卖城市',
+      `ebf_commodity_province` varchar(32) DEFAULT NULL COMMENT '售卖省份',
+      `ebf_commodity_date` datetime DEFAULT NULL COMMENT '商品创建时间',
+      `ebf_commodity_delist_date` datetime DEFAULT NULL COMMENT '商品下架时间',
+      PRIMARY KEY (`ebf_commodity_id`),
+      KEY `ebf_commodity_factory` (`ebf_factory_id`),
+      KEY `dt_id` (`dt_id`),
+      CONSTRAINT `ebt_commodity_history_ibfk_2` FOREIGN KEY (`dt_id`) REFERENCES `ebt_device_type` (`dt_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `ebt_commodity_history_ibfk_1` FOREIGN KEY (`ebf_factory_id`) REFERENCES `ebt_factory` (`ebf_factory_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+    -- ----------------------------
+    -- Table structure for ebt_device
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_device`;
+    CREATE TABLE `ebt_device` (
+      `ebf_device_id` varchar(64) NOT NULL COMMENT '设备编号（mac地址）',
+      `ebf_device_alias` varchar(64) DEFAULT NULL COMMENT '别名',
+      `ebf_device_type` int(2) NOT NULL DEFAULT '1' COMMENT '设备类型（1：洗衣机，0：未知）',
+      `ebf_factory_id` int(11) DEFAULT NULL COMMENT '厂家编号',
+      `ebf_agency_id` int(11) DEFAULT NULL COMMENT '代理商编号',
+      `protocol_id` int(11) DEFAULT NULL COMMENT '协议编号',
+      `dt_id` int(11) DEFAULT NULL COMMENT '设备类型编号',
+      `ebf_device_is_online` int(1) NOT NULL DEFAULT '0' COMMENT '是否在线（1：在线，0：离线）',
+      `ebf_device_model` varchar(512) DEFAULT NULL COMMENT '设备型号',
+      `ebf_device_tag` text COMMENT '设备标签（json格式，给设备定义的各种功能，如地址、楼层等信息）',
+      `ebf_device_property` varchar(2048) DEFAULT NULL COMMENT '设备属性（json格式，保存如洗涤模式与收费标准）',
+      `ebf_device_create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      `ebf_device_ip` varchar(15) DEFAULT NULL COMMENT '设备最近一次联网ip',
+      `ebf_device_longitude` varchar(32) DEFAULT NULL COMMENT '经度',
+      `ebf_device_latitude` varchar(32) DEFAULT NULL COMMENT '纬度',
+      `ebf_device_province` varchar(32) DEFAULT NULL COMMENT '省份',
+      `ebf_device_city` varchar(32) DEFAULT NULL COMMENT '城市',
+      `ebf_device_county` varchar(64) DEFAULT NULL COMMENT '区县',
+      `ebf_device_address` varchar(1024) DEFAULT NULL COMMENT '详细地址',
+      `ebf_device_mac` varchar(12) DEFAULT NULL COMMENT 'mac地址',
+      `ebf_device_oc_date` datetime DEFAULT NULL COMMENT '在线状态改变时间',
+      `ebf_device_secret` text COMMENT '注册标识信息',
+      PRIMARY KEY (`ebf_device_id`),
+      KEY `Index_1` (`ebf_factory_id`),
+      KEY `Index_2` (`ebf_agency_id`),
+      KEY `FK_Reference_11` (`protocol_id`),
+      KEY `FK_Reference_12` (`dt_id`),
+      CONSTRAINT `FK_Reference_10` FOREIGN KEY (`ebf_agency_id`) REFERENCES `ebt_agency` (`ebf_agency_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `FK_Reference_12` FOREIGN KEY (`dt_id`) REFERENCES `ebt_device_type` (`dt_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `FK_Reference_9` FOREIGN KEY (`ebf_factory_id`) REFERENCES `ebt_factory` (`ebf_factory_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `FK_Reference_11` FOREIGN KEY (`protocol_id`) REFERENCES `ebt_protocol` (`protocol_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster DEFAULT CHARSET=utf8 COMMENT='设备表';
+
+    -- ----------------------------
+    -- Table structure for ebt_device_auth
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_device_auth`;
+    CREATE TABLE `ebt_device_auth` (
+      `ebf_da_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '设备授权编号',
+      `ebf_da_device_id` varchar(64) NOT NULL COMMENT '设备编号',
+      `ebf_da_account_type` int(3) NOT NULL DEFAULT '0' COMMENT '账号类型（0：未知，1：苏宁云居，2：阿里小智）',
+      `ebf_da_account_id` varchar(128) NOT NULL COMMENT '账号标识（可能是openid也可能是账号）',
+      `ebf_da_nickname` varchar(32) DEFAULT NULL COMMENT '昵称',
+      `ebf_da_head_url` varchar(1024) DEFAULT NULL COMMENT '头像地址',
+      `ebf_da_create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      PRIMARY KEY (`ebf_da_id`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='设备授权表';
+
+    -- ----------------------------
+    -- Table structure for ebt_device_auth_history
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_device_auth_history`;
+    CREATE TABLE `ebt_device_auth_history` (
+      `ebf_da_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '设备授权编号',
+      `ebf_da_device_id` varchar(64) NOT NULL COMMENT '设备编号',
+      `ebf_da_account_type` int(3) NOT NULL DEFAULT '0' COMMENT '账号类型（0：未知，1：苏宁云居，2：阿里小智）',
+      `ebf_da_account_id` varchar(128) NOT NULL COMMENT '账号标识（可能是openid也可能是账号）',
+      `ebf_da_nickname` varchar(32) DEFAULT NULL COMMENT '昵称',
+      `ebf_da_head_url` varchar(1024) DEFAULT NULL COMMENT '头像地址',
+      `ebf_da_create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      `ebf_da_unbind_type` int(3) NOT NULL DEFAULT '0' COMMENT '解绑类型（0：未知，1：厨房app主动解绑,2：第三方app主动解绑）',
+      `ebf_da_unbind_date` datetime NOT NULL COMMENT '解绑时间',
+      PRIMARY KEY (`ebf_da_id`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='设备授权历史表';
+
+    -- ----------------------------
+    -- Table structure for ebt_device_skin
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_device_skin`;
+    CREATE TABLE `ebt_device_skin` (
+      `ebf_skin_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
+      `ebf_skin_name` varchar(64) DEFAULT NULL,
+      `ebf_skin_type` int(3) NOT NULL DEFAULT '1' COMMENT '类型（0：图片，1：皮肤，2：其他）',
+      `ebf_skin_thumbnail_url` varchar(256) DEFAULT NULL COMMENT '皮肤缩略图对应地址',
+      `ebf_skin_img_url` varchar(256) DEFAULT NULL COMMENT '皮肤大图对应地址',
+      `ebf_skin_address` varchar(256) DEFAULT NULL COMMENT '皮肤对应地址',
+      `ebf_skin_desc` varchar(128) DEFAULT NULL COMMENT '皮肤描述',
+      `ebf_skin_is_free` int(2) NOT NULL DEFAULT '0' COMMENT '是否免费（0：免费，1：收费）',
+      `ebf_skin_price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '皮肤价格',
+      `ebf_skin_apk_name` varchar(64) DEFAULT NULL COMMENT '皮肤apk包名',
+      `ebf_skin_apk_md5` varchar(128) DEFAULT NULL COMMENT '皮肤apk文件md5值',
+      `ebf_skin_create_date` datetime DEFAULT NULL COMMENT '皮肤创建时间',
+      PRIMARY KEY (`ebf_skin_id`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='设备皮肤定制表';
+
+    -- ----------------------------
+    -- Table structure for ebt_device_type
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_device_type`;
+    CREATE TABLE `ebt_device_type` (
+      `dt_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '设备类型编号',
+      `dt_name` varchar(128) DEFAULT NULL COMMENT '设备类型名称',
+      `dt_description` text COMMENT '设备类型描述',
+      PRIMARY KEY (`dt_id`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='设备类型表';
+
+    -- ----------------------------
+    -- Table structure for ebt_easy_goods
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_easy_goods`;
+    CREATE TABLE `ebt_easy_goods` (
+      `ebf_eg_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品编号',
+      `ebf_eg_type` int(3) NOT NULL COMMENT '商品类型（1：水，2：油米等）',
+      `ebf_eg_title` varchar(64) DEFAULT NULL COMMENT '商品标题',
+      `ebf_eg_description` text COMMENT '商品描述',
+      `ebf_eg_thumbnail` varchar(128) DEFAULT NULL COMMENT '商品缩略图',
+      `ebf_eg_goods_images` text COMMENT '商品图片（json格式字符串）',
+      `ebf_eg_price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '商品价格',
+      `ebf_eg_price_old` decimal(10,2) DEFAULT NULL COMMENT '商品原价',
+      `ebf_eg_sale_count` int(11) NOT NULL DEFAULT '0' COMMENT '商品销量',
+      `ebf_eg_order_num` int(11) NOT NULL DEFAULT '0' COMMENT '排序序号',
+      `ebf_eg_update_date` datetime DEFAULT NULL COMMENT '更新时间',
+      `ebf_eg_create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      PRIMARY KEY (`ebf_eg_id`),
+      KEY `Index_1` (`ebf_eg_order_num`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='快捷商品列表';
+
+    -- ----------------------------
+    -- Table structure for ebt_easy_order
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_easy_order`;
+    CREATE TABLE `ebt_easy_order` (
+      `ebf_eo_trade_no` varchar(64) NOT NULL COMMENT '订单编号',
+      `ebf_eg_id` int(11) DEFAULT NULL COMMENT '商品编号',
+      `ebf_eo_type` int(3) DEFAULT '1' COMMENT '订单类型（1：普通订单，2：其它）',
+      `ebf_eo_device_id` varchar(64) NOT NULL COMMENT '设备编号',
+      `ebf_eo_telephone` varchar(32) NOT NULL COMMENT '联系电话',
+      `ebf_eo_buy_total` int(11) NOT NULL DEFAULT '1' COMMENT '购买数量',
+      `ebf_eo_status` int(3) DEFAULT '1' COMMENT '交易状态（1：待处理，2：异常，3：已发货，4：交易完成）',
+      `ebf_eo_pay_method` int(3) NOT NULL COMMENT '付款方式（1：货到付款，2：其它）',
+      `ebf_eo_update_date` datetime NOT NULL COMMENT '更新时间',
+      `ebf_eo_create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      `ebf_eo_address_id` int(11) DEFAULT NULL COMMENT '地址编号',
+      `ebf_eo_remarks` varchar(256) DEFAULT NULL COMMENT '备注',
+      PRIMARY KEY (`ebf_eo_trade_no`),
+      KEY `FK_Reference_22` (`ebf_eg_id`),
+      KEY `ebf_eo_address_id` (`ebf_eo_address_id`),
+      CONSTRAINT `FK_Reference_22` FOREIGN KEY (`ebf_eg_id`) REFERENCES `ebt_easy_goods` (`ebf_eg_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `ebf_eo_address_id` FOREIGN KEY (`ebf_eo_address_id`) REFERENCES `ebt_order_address` (`ebf_oa_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster DEFAULT CHARSET=utf8 COMMENT='快捷订单表';
+
+    -- ----------------------------
+    -- Table structure for ebt_easy_telephone
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_easy_telephone`;
+    CREATE TABLE `ebt_easy_telephone` (
+      `ebf_et_device_id` varchar(64) NOT NULL COMMENT '设备编号',
+      `ebf_et_telephone_default` varchar(32) DEFAULT NULL COMMENT '默认电话号码',
+      `ebf_et_telephone_mod` varchar(32) DEFAULT NULL COMMENT '修改的电话号码',
+      `ebf_et_check_status` int(3) NOT NULL DEFAULT '0' COMMENT '审核状态（:0：未审核，1：通过，2：不通过）',
+      `ebf_et_update_date` datetime NOT NULL COMMENT '更新时间',
+      `ebf_et_create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      PRIMARY KEY (`ebf_et_device_id`)
+    ) ENGINE=ndbcluster DEFAULT CHARSET=utf8 COMMENT='送水电话号码表';
+
+    -- ----------------------------
+    -- Table structure for ebt_factory
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_factory`;
+    CREATE TABLE `ebt_factory` (
+      `ebf_factory_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '厂家编号',
+      `ebf_factory_name` varchar(64) DEFAULT NULL COMMENT '厂家名称',
+      `ebf_factory_address` varchar(1024) DEFAULT NULL COMMENT '厂家地址',
+      `ebf_factory_contact` varchar(32) DEFAULT NULL COMMENT '厂家联系方式',
+      `ebf_factory_uid` varchar(512) DEFAULT NULL COMMENT '厂家标识',
+      `ebf_factory_remarks` text COMMENT '备注',
+      PRIMARY KEY (`ebf_factory_id`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='厂家表';
+
+    -- ----------------------------
+    -- Table structure for ebt_fault_code
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_fault_code`;
+    CREATE TABLE `ebt_fault_code` (
+      `ebf_fc_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '故障代码编号',
+      `ebf_model_id` int(11) DEFAULT NULL COMMENT '产品型号编号',
+      `ebf_fc_factory_id` int(11) NOT NULL COMMENT '厂商编号',
+      `ebf_fc_code` varchar(128) DEFAULT NULL COMMENT '故障码',
+      `ebf_fc_describe` varchar(1024) DEFAULT NULL COMMENT '故障码描述',
+      PRIMARY KEY (`ebf_fc_id`),
+      KEY `Index_1` (`ebf_fc_code`),
+      KEY `FK_Reference_18` (`ebf_model_id`),
+      CONSTRAINT `FK_Reference_18` FOREIGN KEY (`ebf_model_id`) REFERENCES `ebt_model` (`ebf_model_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='故障代码表';
+
+    -- ----------------------------
+    -- Table structure for ebt_fault_diagnose
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_fault_diagnose`;
+    CREATE TABLE `ebt_fault_diagnose` (
+      `ebf_fd_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '故障诊断编号',
+      `ebf_model_id` int(11) DEFAULT NULL COMMENT '产品型号编号',
+      `ebf_factory_id` int(11) NOT NULL COMMENT '厂家编号',
+      `ebf_fd_appearance` varchar(2048) DEFAULT NULL COMMENT '故障现象',
+      `ebf_fd_cause` varchar(2048) DEFAULT NULL COMMENT '故障原因',
+      `ebf_fd_method` text COMMENT '解决方法',
+      PRIMARY KEY (`ebf_fd_id`),
+      KEY `FK_Reference_19` (`ebf_model_id`),
+      CONSTRAINT `FK_Reference_19` FOREIGN KEY (`ebf_model_id`) REFERENCES `ebt_model` (`ebf_model_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COMMENT='故障诊断表';
+
+    -- ----------------------------
+    -- Table structure for ebt_host
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_host`;
+    CREATE TABLE `ebt_host` (
+      `ebf_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
+      `ebf_title` varchar(128) DEFAULT NULL COMMENT '站点名称',
+      `ebf_host` varchar(64) DEFAULT NULL COMMENT '站点域名',
+      `ebf_pic` varchar(128) DEFAULT NULL COMMENT '站点logo',
+      `ebf_copyright` varchar(32) DEFAULT NULL COMMENT '版权声明',
+      PRIMARY KEY (`ebf_id`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='域名配置表';
+
+    -- ----------------------------
+    -- Table structure for ebt_index_custom
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_index_custom`;
+    CREATE TABLE `ebt_index_custom` (
+      `ebf_ic_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
+      `ebf_factory_id` int(11) DEFAULT NULL COMMENT '厂家编号',
+      `ebf_agency_id` int(11) DEFAULT NULL COMMENT '代理商编号',
+      `ebf_ic_create_date` datetime DEFAULT NULL,
+      `ebf_ic_update_date` datetime DEFAULT NULL,
+      `ebf_ic_type` int(3) NOT NULL DEFAULT '0' COMMENT '类型（0：图片，1：视频，2：其他）',
+      `ebf_ic_address` varchar(2048) DEFAULT NULL,
+      `ebf_ic_order_num` int(11) NOT NULL DEFAULT '0' COMMENT '排序序号',
+      PRIMARY KEY (`ebf_ic_id`),
+      KEY `ebf_agency_id` (`ebf_agency_id`),
+      KEY `ebf_factory_id` (`ebf_factory_id`),
+      CONSTRAINT `ebt_index_custom_ibfk_1` FOREIGN KEY (`ebf_agency_id`) REFERENCES `ebt_agency` (`ebf_agency_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `ebt_index_custom_ibfk_2` FOREIGN KEY (`ebf_factory_id`) REFERENCES `ebt_factory` (`ebf_factory_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='首页定制表';
+
+    -- ----------------------------
+    -- Table structure for ebt_invite_code
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_invite_code`;
+    CREATE TABLE `ebt_invite_code` (
+      `ebf_ic_user_id` varchar(128) NOT NULL COMMENT '用户帐号',
+      `ebf_ic_code` varchar(64) NOT NULL COMMENT '自己的邀请码',
+      `ebf_ic_invite_code` varchar(64) DEFAULT NULL COMMENT '被邀请的邀请码',
+      `ebf_ic_is_forbid` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否禁用（0：未禁用，1：禁用）',
+      `ebf_ic_invite_date` datetime DEFAULT NULL COMMENT '邀请时间',
+      `ebf_ic_create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      PRIMARY KEY (`ebf_ic_user_id`),
+      UNIQUE KEY `ebf_ic_code_UNIQUE` (`ebf_ic_code`)
+    ) ENGINE=ndbcluster DEFAULT CHARSET=utf8 COMMENT='邀请码表';
+
+    -- ----------------------------
+    -- Table structure for ebt_menu
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_menu`;
+    CREATE TABLE `ebt_menu` (
+      `ebf_menu_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '菜单编号',
+      `ebf_menu_name` varchar(64) NOT NULL COMMENT '菜单名称',
+      `ebf_menu_is_parent` int(1) NOT NULL DEFAULT '0' COMMENT '是否为目录菜单（0：非目录菜单，1：目录菜单）',
+      `ebf_menu_url` varchar(2048) DEFAULT '#' COMMENT '菜单url地址（相对地址）',
+      `ebf_menu_class` char(64) NOT NULL DEFAULT '',
+      `ebf_menu_depth` int(2) NOT NULL DEFAULT '1' COMMENT '菜单深度（1：一级菜单，2：二级菜单）',
+      `ebf_menu_ordernum` int(11) DEFAULT '0' COMMENT '排序序号（排序只针对同一目录下的同级菜单有效）',
+      `ebf_menu_parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '上级菜单编号（根目录的上级菜单为0）',
+      PRIMARY KEY (`ebf_menu_id`),
+      KEY `Index_1` (`ebf_menu_parent_id`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+
+    -- ----------------------------
+    -- Table structure for ebt_menu_ignore
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_menu_ignore`;
+    CREATE TABLE `ebt_menu_ignore` (
+      `ebf_mi_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '菜单排除编号',
+      `ebf_mi_user_id` varchar(128) DEFAULT NULL COMMENT '用户账号',
+      `ebf_menu_id` int(11) DEFAULT NULL COMMENT '菜单编号',
+      `ebf_mi_remarks` varchar(64) DEFAULT NULL COMMENT '备注',
+      PRIMARY KEY (`ebf_mi_id`),
+      KEY `Index_1` (`ebf_mi_user_id`),
+      KEY `FK_Reference_20` (`ebf_menu_id`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=208 DEFAULT CHARSET=utf8 COMMENT='菜单排除表';
+
+    -- ----------------------------
+    -- Table structure for ebt_merchant_account
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_merchant_account`;
+    CREATE TABLE `ebt_merchant_account` (
+      `ebf_agency_id` int(11) NOT NULL COMMENT '代理商编号',
+      `ebf_ma_pid` varchar(128) NOT NULL COMMENT '商户pid',
+      `ebf_ma_key` varchar(2048) NOT NULL COMMENT '商户key',
+      `ebf_ma_account` varchar(128) NOT NULL COMMENT '支付宝收款账号',
+      `ebf_ma_sk` text COMMENT '商户私钥',
+      `ebf_ma_pk` text COMMENT '支付宝公钥',
+      `ebf_ma_url` text COMMENT '支付成功回调地址',
+      `ebf_ma_mod_user` varchar(128) NOT NULL COMMENT '修改者账号',
+      `ebf_ma_update_date` datetime NOT NULL COMMENT '更新时间',
+      `ebf_ma_create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      PRIMARY KEY (`ebf_agency_id`)
+    ) ENGINE=ndbcluster DEFAULT CHARSET=utf8 COMMENT='收款账户信息';
+
+    -- ----------------------------
+    -- Table structure for ebt_model
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_model`;
+    CREATE TABLE `ebt_model` (
+      `ebf_model_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '产品型号编号',
+      `ebf_category_id` int(11) DEFAULT NULL COMMENT '产品类别编号',
+      `ebf_model_name` varchar(1024) DEFAULT NULL COMMENT '产品型号名称',
+      PRIMARY KEY (`ebf_model_id`),
+      KEY `FK_Reference_17` (`ebf_category_id`),
+      CONSTRAINT `FK_Reference_17` FOREIGN KEY (`ebf_category_id`) REFERENCES `ebt_category` (`ebf_category_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='产品型号表';
+
+    -- ----------------------------
+    -- Table structure for ebt_order_address
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_order_address`;
+    CREATE TABLE `ebt_order_address` (
+      `ebf_oa_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '地址编号',
+      `ebf_oa_device_id` varchar(64) DEFAULT NULL COMMENT '设备编号',
+      `ebf_oa_province` varchar(32) DEFAULT NULL COMMENT '省份',
+      `ebf_oa_city` varchar(64) DEFAULT NULL COMMENT '市',
+      `ebf_oa_county` varchar(64) DEFAULT NULL COMMENT '区',
+      `ebf_oa_address` varchar(256) DEFAULT NULL COMMENT '详细地址',
+      `ebf_oa_phone` varchar(16) DEFAULT NULL COMMENT '电话',
+      `ebf_oa_default` int(1) NOT NULL COMMENT '是否为默认地址(0-不是；1-是)',
+      `ebf_oa_create_time` datetime NOT NULL COMMENT '创建日期',
+      `ebf_oa_delete` int(1) NOT NULL DEFAULT '0' COMMENT '是否删除(0-未删除；1-删除)',
+      `ebf_oa_name` varchar(64) NOT NULL COMMENT '收件人姓名',
+      PRIMARY KEY (`ebf_oa_id`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COMMENT='订单地址表';
+
+    -- ----------------------------
+    -- Table structure for ebt_pay
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_pay`;
+    CREATE TABLE `ebt_pay` (
+      `ebf_pay_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '支付编号',
+      `ebf_device_id` varchar(64) DEFAULT NULL COMMENT '设备编号（mac地址）',
+      `ebf_user_id` varchar(128) DEFAULT NULL COMMENT '账号',
+      `ebf_pay_trade_no` varchar(128) NOT NULL COMMENT '订单号',
+      `ebf_pay_fee` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '支付费用',
+      `ebf_pay_is_success` int(1) NOT NULL COMMENT '是否支付成功（1：成功，0:失败）',
+      `ebf_pay_create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      `ebf_pay_type` int(1) NOT NULL COMMENT '支付类型（1：支付宝，2：微信支付，3：银联，4：账户余额）',
+      `ebf_pay_content` varchar(2048) DEFAULT NULL COMMENT '订单描述（json格式，保存洗涤模式、时间等，例如{"wash_mode":"标准洗","wash_time":300}）',
+      `ebf_pay_remarks` text COMMENT '备注',
+      `ebf_pay_status` int(1) NOT NULL DEFAULT '0' COMMENT '支付状态（0:等待付款，1：支付成功，-1支付失败，2：退款，3：取消支付）',
+      `ebf_pay_pay_date` datetime DEFAULT NULL COMMENT '成功支付时间',
+      `ebf_third_trade_no` varchar(128) DEFAULT NULL COMMENT '第三方支付的订单号(例如 支付宝的订单号或者微信的订单号)',
+      `ebf_pay_account` varchar(128) DEFAULT NULL COMMENT '收款账号(收款支付宝账号)',
+      `ebf_pay_agency_id` int(11) DEFAULT '0' COMMENT '代理商编号',
+      `ebf_pay_factory_id` int(11) DEFAULT '4' COMMENT '厂商编号',
+      `ebf_pay_pay_account` varchar(128) DEFAULT NULL COMMENT '付款者支付帐号',
+      `ebf_pay_trade_type` int(1) NOT NULL DEFAULT '1' COMMENT '订单类型（1：消费订单，2：账户充值订单）',
+      `ebf_pay_remote_ip` varchar(16) DEFAULT NULL COMMENT '请求ip',
+      PRIMARY KEY (`ebf_pay_id`),
+      UNIQUE KEY `Index_1` (`ebf_pay_trade_no`),
+      KEY `FK_Reference_2` (`ebf_device_id`),
+      KEY `FK_Reference_3` (`ebf_user_id`),
+      CONSTRAINT `FK_Reference_3` FOREIGN KEY (`ebf_user_id`) REFERENCES `ebt_user` (`ebf_user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `FK_Reference_2` FOREIGN KEY (`ebf_device_id`) REFERENCES `ebt_device` (`ebf_device_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster AUTO_INCREMENT=5489 DEFAULT CHARSET=utf8 COMMENT='支付记录表';
+
+    -- ----------------------------
+    -- Table structure for ebt_pay_count
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_pay_count`;
+    CREATE TABLE `ebt_pay_count` (
+      `ebf_pc_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+      `ebf_pc_pay_count` int(11) NOT NULL DEFAULT '0' COMMENT '订单数',
+      `ebf_pc_month` datetime NOT NULL COMMENT '月份（本月的第一天）',
+      `ebf_pc_fee_count` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '总额',
+      `ebf_pc_account` varchar(32) DEFAULT NULL COMMENT '收款帐号',
+      `ebf_pc_agency_id` int(11) NOT NULL COMMENT '代理商ID',
+      `ebf_pc_created_date` datetime NOT NULL COMMENT '统计记录创建时间',
+      PRIMARY KEY (`ebf_pc_id`),
+      KEY `ebf_pc_agency_id` (`ebf_pc_agency_id`),
+      CONSTRAINT `ebt_pay_count_ibfk_1` FOREIGN KEY (`ebf_pc_agency_id`) REFERENCES `ebt_agency` (`ebf_agency_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster AUTO_INCREMENT=132 DEFAULT CHARSET=utf8 COMMENT='账单统计表';
+
+    -- ----------------------------
+    -- Table structure for ebt_pay_history
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_pay_history`;
+    CREATE TABLE `ebt_pay_history` (
+      `ebf_pay_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '支付编号',
+      `ebf_device_id` varchar(64) DEFAULT NULL COMMENT '设备编号（mac地址）',
+      `ebf_user_id` varchar(128) DEFAULT NULL COMMENT '账号',
+      `ebf_pay_trade_no` varchar(128) NOT NULL COMMENT '订单号',
+      `ebf_pay_fee` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '支付费用',
+      `ebf_pay_is_success` int(1) NOT NULL COMMENT '是否支付成功（1：成功，0:失败）',
+      `ebf_pay_create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      `ebf_pay_type` int(1) NOT NULL COMMENT '支付类型（1：支付宝，2：微信支付，3：银联）',
+      `ebf_pay_content` varchar(2048) DEFAULT NULL COMMENT '订单描述（json格式，保存洗涤模式、时间等，例如{"wash_mode":"标准洗","wash_time":300}）',
+      `ebf_pay_remarks` text COMMENT '备注',
+      `ebf_pay_status` int(1) NOT NULL DEFAULT '0' COMMENT '支付状态（0:等待付款，1：支付成功，-1支付失败，2：退款，3：取消支付）',
+      `ebf_third_trade_no` varchar(128) DEFAULT NULL COMMENT '第三方支付的订单号(例如 支付宝的订单号或者微信的订单号)',
+      `ebf_pay_pay_date` datetime DEFAULT NULL COMMENT '成功支付时间',
+      `ebf_pay_account` varchar(128) DEFAULT NULL COMMENT '收款账号(收款支付宝账号)',
+      `ebf_pay_agency_id` int(11) DEFAULT '0' COMMENT '代理商编号',
+      `ebf_pay_delete_date` datetime DEFAULT NULL COMMENT '删除时间',
+      PRIMARY KEY (`ebf_pay_id`),
+      UNIQUE KEY `Index_1` (`ebf_pay_trade_no`),
+      KEY `FK_Reference_2` (`ebf_device_id`),
+      KEY `FK_Reference_3` (`ebf_user_id`),
+      CONSTRAINT `FK_Reference_32` FOREIGN KEY (`ebf_user_id`) REFERENCES `ebt_user` (`ebf_user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `FK_Reference_31` FOREIGN KEY (`ebf_device_id`) REFERENCES `ebt_device` (`ebf_device_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster AUTO_INCREMENT=532 DEFAULT CHARSET=utf8 COMMENT='支付记录历史表';
+
+    -- ----------------------------
+    -- Table structure for ebt_protocol
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_protocol`;
+    CREATE TABLE `ebt_protocol` (
+      `protocol_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '协议编号',
+      `protocol_type` int(3) NOT NULL DEFAULT '0' COMMENT '协议类型(0:普通协议)',
+      `protocol_name` varchar(128) DEFAULT NULL COMMENT '协议名称',
+      `protocol_description` text COMMENT '协议描述',
+      PRIMARY KEY (`protocol_id`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='协议表';
+
+    -- ----------------------------
+    -- Table structure for ebt_refund
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_refund`;
+    CREATE TABLE `ebt_refund` (
+      `ebf_refund_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+      `ebf_refund_status` int(2) DEFAULT '0' COMMENT '退款状态: 0：未处理， 1：成功， 2：失败',
+      `ebf_refund_reason` varchar(2048) DEFAULT NULL COMMENT '退款理由',
+      `ebf_user_id` varchar(128) DEFAULT NULL COMMENT '退款用户ID',
+      `ebf_pay_trade_no` varchar(128) DEFAULT NULL COMMENT '退款订单号',
+      `ebf_phone_number` varchar(32) DEFAULT NULL COMMENT '退款联系号码',
+      `ebf_refund_refuse_reason` varchar(2048) DEFAULT NULL COMMENT '退款拒绝理由',
+      `ebf_refund_date` datetime DEFAULT NULL COMMENT '退款提交时间',
+      `ebf_refund_deal_date` datetime DEFAULT NULL COMMENT '退款处理日期',
+      `ebf_factory_id` int(11) DEFAULT NULL COMMENT '厂商编号',
+      `ebf_agency_id` int(11) DEFAULT NULL COMMENT '代理商编号',
+      `ebf_pay_type` int(1) DEFAULT NULL COMMENT '支付类型（1：支付宝，2：微信支付，3：银联）',
+      `ebf_third_trade_no` varchar(128) DEFAULT NULL COMMENT '第三方支付的订单号(例如 支付宝的订单号或者微信的订单号)',
+      `ebf_refund_account` varchar(64) DEFAULT NULL COMMENT '退款账号（申请退款的人的帐号）',
+      PRIMARY KEY (`ebf_refund_id`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=116 DEFAULT CHARSET=utf8 COMMENT='退款记录表';
+
+    -- ----------------------------
+    -- Table structure for ebt_role
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_role`;
+    CREATE TABLE `ebt_role` (
+      `ebf_role_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '角色编号',
+      `ebf_role_name` varchar(64) DEFAULT NULL COMMENT '角色名称',
+      `ebf_role_remarks` text COMMENT '备注',
+      PRIMARY KEY (`ebf_role_id`)
+    ) ENGINE=ndbcluster AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='角色表';
+
+    -- ----------------------------
+    -- Table structure for ebt_role_identifier
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_role_identifier`;
+    CREATE TABLE `ebt_role_identifier` (
+      `ebf_ri_uid` varchar(64) NOT NULL COMMENT '厂商/代理商的uid',
+      `ebf_ri_role_id` int(11) DEFAULT NULL COMMENT '角色id',
+      PRIMARY KEY (`ebf_ri_uid`),
+      KEY `pk_ri_role_uid` (`ebf_ri_role_id`),
+      CONSTRAINT `pk_ri_role_uid` FOREIGN KEY (`ebf_ri_role_id`) REFERENCES `ebt_role` (`ebf_role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster DEFAULT CHARSET=utf8 COMMENT='角色机构关系表';
+
+    -- ----------------------------
+    -- Table structure for ebt_role_menu
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_role_menu`;
+    CREATE TABLE `ebt_role_menu` (
+      `ebf_rm_id` int(11) NOT NULL AUTO_INCREMENT,
+      `ebf_role_id` int(11) DEFAULT NULL COMMENT '角色编号',
+      `ebf_menu_id` int(11) DEFAULT NULL COMMENT '菜单编号',
+      PRIMARY KEY (`ebf_rm_id`),
+      KEY `FK_Reference_13` (`ebf_role_id`),
+      KEY `FK_Reference_14` (`ebf_menu_id`),
+      CONSTRAINT `FK_Reference_13` FOREIGN KEY (`ebf_role_id`) REFERENCES `ebt_role` (`ebf_role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `FK_Reference_14` FOREIGN KEY (`ebf_menu_id`) REFERENCES `ebt_menu` (`ebf_menu_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster AUTO_INCREMENT=1861 DEFAULT CHARSET=utf8 COMMENT='角色菜单关系表';
+
+    -- ----------------------------
+    -- Table structure for ebt_setup
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_setup`;
+    CREATE TABLE `ebt_setup` (
+      `ebf_setup_key` varchar(128) NOT NULL COMMENT '配置键',
+      `ebf_setup_value` varchar(2048) NOT NULL COMMENT '配置值',
+      `ebf_setup_type` int(1) NOT NULL DEFAULT '0' COMMENT '配置类型（0：普通配置）',
+      PRIMARY KEY (`ebf_setup_key`)
+    ) ENGINE=ndbcluster DEFAULT CHARSET=utf8 COMMENT='配置表';
+
+    -- ----------------------------
+    -- Table structure for ebt_skin_pay
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_skin_pay`;
+    CREATE TABLE `ebt_skin_pay` (
+      `ebf_skin_pay_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '支付编号',
+      `ebf_device_id` varchar(64) DEFAULT NULL COMMENT '设备编号（mac地址）',
+      `ebf_user_id` varchar(128) DEFAULT NULL COMMENT '账号',
+      `ebf_skin_id` int(11) DEFAULT NULL COMMENT '皮肤编号',
+      `ebf_pay_trade_no` varchar(128) NOT NULL COMMENT '订单号',
+      `ebf_pay_fee` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '支付费用',
+      `ebf_pay_is_success` int(1) NOT NULL COMMENT '是否支付成功（1：成功，0:失败）',
+      `ebf_pay_create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      `ebf_pay_type` int(1) NOT NULL COMMENT '支付类型（1：支付宝，2：微信支付，3：银联）',
+      `ebf_pay_remarks` text COMMENT '备注',
+      `ebf_pay_status` int(1) NOT NULL DEFAULT '0' COMMENT '支付状态（0:等待付款，1：支付成功，-1支付失败，2：退款，3：取消支付）',
+      `ebf_pay_pay_date` datetime DEFAULT NULL COMMENT '成功支付时间',
+      `ebf_third_trade_no` varchar(128) DEFAULT NULL COMMENT '第三方支付的订单号(例如 支付宝的订单号或者微信的订单号)',
+      `ebf_pay_account` varchar(128) DEFAULT NULL COMMENT '收款账号(收款支付宝账号)',
+      `ebf_pay_pay_account` varchar(128) DEFAULT NULL COMMENT '付款者支付帐号',
+      `ebf_pay_remote_ip` varchar(16) DEFAULT NULL COMMENT '请求ip',
+      PRIMARY KEY (`ebf_skin_pay_id`),
+      UNIQUE KEY `Index_1` (`ebf_pay_trade_no`),
+      KEY `FK_Reference_42` (`ebf_device_id`),
+      KEY `FK_Reference_43` (`ebf_skin_id`),
+      CONSTRAINT `FK_Reference_42` FOREIGN KEY (`ebf_device_id`) REFERENCES `ebt_device` (`ebf_device_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `FK_Reference_43` FOREIGN KEY (`ebf_skin_id`) REFERENCES `ebt_device_skin` (`ebf_skin_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster AUTO_INCREMENT=2618 DEFAULT CHARSET=utf8 COMMENT='皮肤购买记录表';
+
+    -- ----------------------------
+    -- Table structure for ebt_user
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_user`;
+    CREATE TABLE `ebt_user` (
+      `ebf_user_id` varchar(128) NOT NULL COMMENT '账号',
+      `ebf_user_account` varchar(128) DEFAULT NULL COMMENT '内部账号(用于第三方账号登录时关联)',
+      `ebf_user_password` varchar(512) NOT NULL COMMENT '密码',
+      `ebf_user_headurl` varchar(1024) DEFAULT NULL COMMENT '头像地址',
+      `ebf_user_nickname` varchar(32) DEFAULT NULL COMMENT '昵称',
+      `ebf_user_gender` int(1) NOT NULL DEFAULT '0' COMMENT '性别(1:男,2:女,0:未知)',
+      `ebf_user_type` int(2) NOT NULL DEFAULT '0' COMMENT '用户类型（0：普通用户，1：管理员，2：厂商，3：运营商）',
+      `ebf_user_account_type` int(2) NOT NULL DEFAULT '0' COMMENT '账号类型（0：内部账号，1：qq，2：微信，3：新浪微博）',
+      `ebf_user_login_date` datetime DEFAULT NULL COMMENT '最近登录时间',
+      `ebf_user_is_online` int(1) NOT NULL DEFAULT '0' COMMENT '是否在线（0：离线，1：在线）',
+      `ebf_user_remarks` varchar(64) DEFAULT NULL COMMENT '备注',
+      `ebf_user_create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+      `ebf_user_phone` varchar(32) DEFAULT NULL COMMENT '联系电话',
+      `ebf_user_is_forbid` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否禁用（0：未禁用，1：禁用）',
+      `ebf_user_factory_id` int(11) DEFAULT NULL COMMENT '所属厂家编号',
+      PRIMARY KEY (`ebf_user_id`),
+      KEY `Index_1` (`ebf_user_type`),
+      KEY `Index_2` (`ebf_user_account_type`)
+    ) ENGINE=ndbcluster DEFAULT CHARSET=utf8 COMMENT='用户表';
+
+    -- ----------------------------
+    -- Table structure for ebt_user_agency
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_user_agency`;
+    CREATE TABLE `ebt_user_agency` (
+      `ebf_user_id` varchar(128) NOT NULL COMMENT '账号',
+      `ebf_agency_id` int(11) DEFAULT NULL COMMENT '代理商编号',
+      PRIMARY KEY (`ebf_user_id`),
+      KEY `FK_Reference_8` (`ebf_agency_id`),
+      CONSTRAINT `ebt_user_agency_ibfk_2` FOREIGN KEY (`ebf_agency_id`) REFERENCES `ebt_agency` (`ebf_agency_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `ebt_user_agency_ibfk_1` FOREIGN KEY (`ebf_user_id`) REFERENCES `ebt_user` (`ebf_user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster DEFAULT CHARSET=utf8 COMMENT='账号代理商关系表';
+
+    -- ----------------------------
+    -- Table structure for ebt_user_factory
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_user_factory`;
+    CREATE TABLE `ebt_user_factory` (
+      `ebf_user_id` varchar(128) NOT NULL COMMENT '账号',
+      `ebf_factory_id` int(11) DEFAULT NULL COMMENT '厂家编号',
+      PRIMARY KEY (`ebf_user_id`),
+      KEY `FK_Reference_6` (`ebf_factory_id`),
+      CONSTRAINT `ebt_user_factory_ibfk_2` FOREIGN KEY (`ebf_factory_id`) REFERENCES `ebt_factory` (`ebf_factory_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `ebt_user_factory_ibfk_1` FOREIGN KEY (`ebf_user_id`) REFERENCES `ebt_user` (`ebf_user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster DEFAULT CHARSET=utf8 COMMENT='账号厂商关系表';
+
+    -- ----------------------------
+    -- Table structure for ebt_user_info
+    -- ----------------------------
+    DROP TABLE IF EXISTS `ebt_user_info`;
+    CREATE TABLE `ebt_user_info` (
+      `ebf_user_id` varchar(128) NOT NULL COMMENT '账号',
+      `ebf_ui_province` varchar(32) DEFAULT NULL COMMENT '省份',
+      `ebf_ui_city` varchar(32) DEFAULT NULL COMMENT '城市',
+      `ebf_ui_area` varchar(32) DEFAULT NULL COMMENT '区县',
+      `ebf_ui_token` varchar(1024) DEFAULT NULL COMMENT 'token值',
+      `ebf_ui_school` varchar(64) DEFAULT NULL COMMENT '学校',
+      `ebf_ui_sign` varchar(64) DEFAULT NULL COMMENT '个性签名',
+      `ebf_ui_hobby` varchar(1024) DEFAULT NULL COMMENT '兴趣爱好',
+      `ebf_ui_update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+      `ebf_ui_property` text COMMENT '用户属性，json格式',
+      `ebf_ui_is_special` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否需要特殊处理（0：不需要，1：需要）',
+      `ebf_ui_banner_menu` text COMMENT '首页菜单配置',
+      PRIMARY KEY (`ebf_user_id`),
+      CONSTRAINT `ebt_user_info_ibfk_1` FOREIGN KEY (`ebf_user_id`) REFERENCES `ebt_user` (`ebf_user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    ) ENGINE=ndbcluster DEFAULT CHARSET=utf8 COMMENT='用户信息从表';

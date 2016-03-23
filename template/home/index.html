@@ -1,0 +1,294 @@
+{% extends "home/base.html" %}
+{% load staticfiles %}
+{% load filter %}
+{% block title %}所有任务{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/icono.min.css' %}">
+
+    <style>
+    .content-block-title{
+        margin: 0.5rem 0.75rem 0.5rem;
+        font-size: 18px;
+    }
+    .item-title{
+        font-size: 15px;
+    }
+    .list-block{
+        margin: 0px;
+    }
+    .dealed{
+        text-decoration: line-through;
+        color: #ccc;
+    }
+    label.label-checkbox input[type="checkbox"], label.label-checkbox input[type="radio"]{
+        display: inline;
+    }
+    .item-choose{
+        width: 20px;
+        height: 20px;
+        margin-right: 12px;
+        margin-top: 25px;
+        margin-left: 16px;
+    }
+    .item-after img{
+        width: 24px;
+        height: 24px;
+    }
+    .list-block ul li{
+        display: -webkit-box;
+        height: 75px;
+{#        background: rosybrown;#}
+    }
+    .item-border{
+        position: absolute;
+        left: 0px;
+        top: 45px;
+        bottom: 0px;
+    }
+    .item-border small{
+        padding-right: 10px;
+        font-size: 12px;
+    }
+    .icono-clock{
+        width: 15px;
+        height: 15px;
+        color: #ccc;
+    }
+    .icono-clock:after, .icono-clock:before{
+        top:22%!important;
+    }
+    .icono-clock:before {
+        width: 2px!important;
+        height: 8px!important;
+    }
+    .item-name,.item-time{
+        color: #ccc;
+    }
+    .item-inner:after{
+        top:74px!important;
+    }
+    .item-hide-type{
+        border-top: 1px solid #c7c7c7;
+        width: 93%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .task-unfinish,.task-finished{
+        padding-left: 30px!important;
+    }
+    .icono-play{
+        margin: 6px 14px 6px 3px;
+        color: #c7c7c7;
+        transform: rotate(90deg);
+        -moz-transform:rotate(90deg);
+        -webkit-transform:rotate(90deg);
+    }
+    .icono-play-nomal{
+        margin: 6px 14px 6px 3px;
+        color: #c7c7c7;
+        transform: rotate(0deg);
+        -moz-transform:rotate(0deg);
+        -webkit-transform:rotate(0deg);
+    }
+    .row{
+        margin-left: -2px;
+        margin-right: 10px;
+    }
+    .task-number{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        display: none;
+    }
+    </style>
+
+
+{% endblock %}
+
+{% block pagetitle %}<h1 class="title">所有</h1>{% endblock %}
+{% block content %}
+
+    <div class="content">
+    <div class="searchbar row">
+        <div class="search-input col-80">
+          <label class="icon icon-edit" for="search"></label>
+          <input type="search" id='task-msg' placeholder='输入任务...'/>
+        </div>
+        <a class="button button-fill button-primary col-20" id="BtnSaveTask">确认</a>
+      </div>
+
+    <div class="content-block-title" id="task-doing"><i class="icono-play"></i>进行中<small class="task-number">{{ un_finish_len|safe }}</small></div>
+    <div class="list-block media-list">
+      <ul class="task-unfinish">
+          {% for i in un_finish_plan %}
+
+            <li>
+                <input type="checkbox" name="checkbox" class="item-choose">
+
+                <div class="item-inner">
+                  <div class="item-title-row">
+                    <div class="item-title">{{ i.plan_msg }}</div>
+                      {% if i.plan_type == 1 %}
+                        <div class="item-after"><img src="{% static 'img/repeat.png' %}"></div>
+                      {% elif i.plan_type == 2 %}
+                        <div class="item-after"><img src="{% static 'img/Share.png' %}"></div>
+                      {% elif i.plan_type == 3 %}
+                        <div class="item-after"><img src="{% static 'img/folder_mail.png' %}"></div>
+                      {% endif %}
+                    <div class="item-border"> <small class="item-number">#{{ i.plan_id }}</small><small class="item-name">{{ i.user_id.user_nickname }}</small><small class="item-time"><i class="icono-clock"></i>{{ i.create_date|wlutc2local }}</small></div>
+                  </div>
+
+                </div>
+
+            </li>
+
+          {% endfor %}
+
+      </ul>
+    </div>
+
+    <div class="content-block-title" id="task-done"><i class="icono-play"></i> 已完成<small class="task-number">{{ finish_len|safe }}</small></div>
+
+    <div class="list-block media-list">
+      <ul class="task-finished">
+
+        {% for i in finish_plan %}
+
+            <li>
+                <input type="checkbox" name="checkbox" class="item-choose" checked disabled>
+
+                <div class="item-inner dealed">
+                  <div class="item-title-row">
+                    <div class="item-title">{{ i.plan_msg }}</div>
+                      {% if i.plan_type == 1 %}
+                        <div class="item-after"><img src="{% static 'img/repeat.png' %}"></div>
+                      {% elif i.plan_type == 2 %}
+                        <div class="item-after"><img src="{% static 'img/Share.png' %}"></div>
+                      {% elif i.plan_type == 3 %}
+                        <div class="item-after"><img src="{% static 'img/folder_mail.png' %}"></div>
+                      {% endif %}
+                    <div class="item-border"> <small class="item-number">#{{ i.plan_id }}</small><small class="item-name">{{ i.user_id.user_nickname }}</small><small class="item-time"><i class="icono-clock"></i>{{ i.create_date|wlutc2local }}</small></div>
+                  </div>
+
+                </div>
+
+            </li>
+
+          {% endfor %}
+
+      </ul>
+    </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+    function current_date(){
+        var myDate = new Date();
+        var M = myDate.getMonth()+1; //月份
+        var d = myDate.getDate(); //日期
+        var h = myDate.getHours()+1; //小时
+        var m = myDate.getMinutes(); //分钟
+        if (M<10){
+            M = '0'+M
+        }
+        if (m < 10){
+            m = '0'+m
+        }
+
+        return M + "-"+ d + " "+ h+":"+ m
+    }
+    function bindCheckList(){
+        $(".item-choose").click(function(){
+            $(this).next('div').addClass('dealed');
+            $(this).attr('disabled',true);
+            $(this).parent('li').prependTo($(".task-finished"));
+            var plan_id = $(this).next("div").children('div').children().last().children().first().html().split("#")[1];
+            $.ajax({
+                    url: '/deal_plan',
+                    type: "POST",
+                    data: {'plan_num': plan_id, 'flag': 'update'},
+                    beforeSend: function () {
+
+                    },
+                    success: function (res) {
+
+{#                        alert('登陆成功')#}
+                    },
+                    error: function (res) {
+                        $.alert('出错')
+                    }
+                })
+        });
+    }
+    $(function(){
+        $("#panel-first").addClass("panel-native");
+        bindCheckList();
+        $("#task-doing").bind('tap', function(){
+           $(".task-unfinish").toggle();
+            $(this).children('small').toggle();
+
+            if ( $(this).children('i').hasClass('icono-play-nomal')){
+                // 让箭头向下
+                $(this).children('i').addClass('icono-play').removeClass('icono-play-nomal');
+                $(this).next('div').removeClass('item-hide-type')
+            }
+            else{
+                // 让箭头向右
+                $(this).children('i').addClass('icono-play-nomal');
+                $(this).next('div').addClass('item-hide-type')
+            }
+        });
+        $("#task-done").bind('tap', function(){
+           $(".task-finished").toggle();
+            $(this).children('small').toggle();
+            if ( $(this).children('i').hasClass('icono-play-nomal')){
+                // 让箭头向下
+                $(this).children('i').addClass('icono-play').removeClass('icono-play-nomal');
+                $(this).next('div').removeClass('item-hide-type')
+            }
+            else{
+                // 让箭头向右
+                $(this).children('i').addClass('icono-play-nomal');
+                $(this).next('div').addClass('item-hide-type')
+            }
+        });
+        $("#BtnSaveTask").bind('tap', function(){
+
+            var task_val = $("#task-msg").val().trim();
+            var finish_len = $('.task-finished >li').length;
+            var un_finish_len = $('.task-unfinish >li').length;
+            var total_num = parseInt(finish_len)+parseInt(un_finish_len)+1;
+            if (task_val){
+                var html = '<li>  <input type="checkbox" name="checkbox" class="item-choose">' +
+                        ' <div class="item-inner"> <div class="item-title-row">' +
+                        '<div class="item-title">'+task_val+'</div>' +
+                        '<div class="item-border"> <small class="item-number">#'+total_num+'</small>' +
+                        '<small class="item-name">他们说我名字太长</small><small class="item-time">' +
+                        '<i class="icono-clock"></i>'+current_date()+'</small></div></div></div></li>';
+
+                $(html).prependTo($(".task-unfinish"));
+                $("#task-msg").val('');
+                bindCheckList();
+                $.ajax({
+                    url     : "/deal_plan",
+                    type  : "POST",
+                    dataType: "json",
+                    data    : {'flag': 'add', 'msg': task_val},
+                    success : function (data) {
+
+                    },
+                    error:function(){
+
+                    }
+                })
+            }
+            else{
+                $.alert('未填写任何任务');
+            }
+
+        });
+
+    })
+    </script>
+{% endblock %}
+

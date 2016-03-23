@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>js表格 &mdash; smartsys 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="top" title="smartsys 1.0 documentation" href="../index.html" />
+    <link rel="up" title="使用教程" href="../tutorial.html" />
+    <link rel="next" title="相关资料" href="../material.html" />
+    <link rel="prev" title="文件上传" href="upload.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+
+  </head>
+  <body role="document">
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../index.html">smartsys 1.0 documentation</a> &raquo;</li>
+          <li><a href="../tutorial.html" accesskey="U">使用教程</a> &raquo;</li> 
+      </ul>
+    </div>
+    
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="js">
+<h1>js表格<a class="headerlink" href="#js" title="Permalink to this headline">¶</a></h1>
+<p>对mmgrid表格插件生成时候的优化,可以有效减少代码量,增加函数的复用</p>
+<p>主要涉及到的三个js文件</p>
+<ul class="simple">
+<li>js/device/common-validate.js : 主要是数据验证的函数</li>
+<li>js/device/common-mmgrid.js : 主要是表格组件渲染生成相关的函数</li>
+<li>js/device/common-convert.js : 主要是数据转换的函数</li>
+</ul>
+<p>其他根据需要自己添加</p>
+<div class="section" id="id1">
+<h2>使用:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>1. 构造的列<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>根据需要可以将所有需要生成的列放入一个数组中,如下:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">col_items</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;头像&#39;</span><span class="p">,</span> <span class="nx">render</span><span class="o">:</span> <span class="nx">mmgrid</span><span class="p">.</span><span class="nx">renderHeaderHtml</span><span class="p">},</span>
+    <span class="p">{</span><span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;帐号&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="nx">render</span><span class="o">:</span> <span class="nx">mmgrid</span><span class="p">.</span><span class="nx">renderUserDetail</span><span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;帐号类型&#39;</span><span class="p">,</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;user_account_type&#39;</span><span class="p">,</span>
+        <span class="nx">render</span><span class="o">:</span> <span class="nx">mmgrid</span><span class="p">.</span><span class="nx">renderHtml</span><span class="p">,</span>
+        <span class="nx">convert</span><span class="o">:</span> <span class="nx">CommonConvert</span><span class="p">.</span><span class="nx">convertAccountType</span>
+    <span class="p">},</span>
+    <span class="p">{</span><span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;用户类型&#39;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;user_type&#39;</span><span class="p">,</span> <span class="nx">render</span><span class="o">:</span> <span class="nx">mmgrid</span><span class="p">.</span><span class="nx">renderHtml</span><span class="p">,</span> <span class="nx">convert</span><span class="o">:</span> <span class="nx">CommonConvert</span><span class="p">.</span><span class="nx">convertUserType</span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>数组中每个对象接收的参数如下:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="nx">width</span><span class="o">:</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="nx">align</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="nx">sortable</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">nowrap</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">hidden</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="c1">// convert接收一个转换函数名</span>
+    <span class="nx">convert</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="c1">// render接收一个函数名</span>
+    <span class="nx">render</span><span class="o">:</span> <span class="nx">functionName</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>上面有些参数不需要传递值,是有默认参数的,你也可以传递不同的值将其覆盖.
+必须要写的参数是 name, 否则在render中获取不到对应的这一列的值, 就会出错</p>
+<p>其中:</p>
+<ul class="simple">
+<li>convert: 接收的函数是将在render的函数中使用, 对于有些渲染的返回值需要转换的,这个时候就可以写一个函数传入,如果没有,则直接返回原始值</li>
+<li>render: 这个渲染函数跟mmgrid表格原始的renderer参数对应,但是,我们传入的这个函数是在renderer函数的内部执行的,所得到的结果会返回给renderer,然后由renderer再次返回.这个函数的参数由renderer中传入,会传入三个值: val, item, defaultSetting,从这三个值中可以获取到所有的信息</li>
+</ul>
+<p>其他参数基本都与mmgrid中相同</p>
+</div>
+<div class="section" id="id3">
+<h3>2. 生成表格需要的列<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>根据第一步中构造的列的信息,生成mmgrid中原本的列的信息,调用一个函数即可:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">cols</span> <span class="o">=</span> <span class="nx">mmgrid</span><span class="p">.</span><span class="nx">generateGridCols</span><span class="p">(</span><span class="nx">col_items</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>这样生成的cols就是和原始的列的信息是一致的,这时候可以将列参数传入构造一个mmgrid对象</p>
+</div>
+<div class="section" id="id4">
+<h3>3. 渲染表格<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>渲染表格的代码和格式如下:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">mmg</span> <span class="o">=</span> <span class="nx">mmgrid</span><span class="p">.</span><span class="nx">renderGrid</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#table6-1&#39;</span><span class="p">),</span>
+    <span class="p">{</span>
+        <span class="nx">cols</span><span class="o">:</span> <span class="nx">cols</span><span class="p">,</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;/device/user/user&quot;</span><span class="p">,</span>
+        <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;post&#39;</span><span class="p">,</span>
+        <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#paginator11-1&#39;</span><span class="p">).</span><span class="nx">mmPaginator</span><span class="p">()],</span>
+        <span class="nx">params</span><span class="o">:</span> <span class="nx">contactParams</span>
+    <span class="p">});</span>
+</pre></div>
+</div>
+<p>在这里面,第一个参数是表格的id或者class选择器,第二个参数就是表格可以复写的参数字段,原表格中的字段如下:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">defaultSetting</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">cols</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="nx">height</span><span class="o">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;get&#39;</span><span class="p">,</span>
+    <span class="nx">remoteSort</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">fullWidthRows</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">sortName</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="nx">sortStatus</span><span class="o">:</span> <span class="s1">&#39;asc&#39;</span><span class="p">,</span>
+    <span class="nx">nowrap</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">plugins</span><span class="o">:</span> <span class="p">[],</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{};</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>这里面的参数都是一致的,最后返回一个mmgrid对象</p>
+<p>表格生成后还可以绑定一些过滤事件,如下:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">mmgrid</span><span class="p">.</span><span class="nx">filterGrid</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#btnFilter&quot;</span><span class="p">),</span> <span class="nx">mmg</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>这个是表格的过滤重新加载的事件绑定,可以自己定义其他的</p>
+<p>其他一些函数主要是和表格渲染和数据转换验证相关,可以看那三个文件中是否有,如果已经存在,直接调用即可;没有的话自己写上去,记得写注释!</p>
+<p>根据函数功能写在不同的文件中,如果功能不属于这三个,可以自己创建,规范代码,不要有太多警告.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">js表格</a><ul>
+<li><a class="reference internal" href="#id1">使用:</a><ul>
+<li><a class="reference internal" href="#id2">1. 构造的列</a></li>
+<li><a class="reference internal" href="#id3">2. 生成表格需要的列</a></li>
+<li><a class="reference internal" href="#id4">3. 渲染表格</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="upload.html"
+                        title="previous chapter">文件上传</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../material.html"
+                        title="next chapter">相关资料</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../material.html" title="相关资料"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="upload.html" title="文件上传"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, 53iq.
+    </div>
+  </body>
+</html>

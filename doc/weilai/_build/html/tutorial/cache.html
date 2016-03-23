@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>缓存规范 &mdash; smartsys 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="top" title="smartsys 1.0 documentation" href="../index.html" />
+    <link rel="up" title="使用教程" href="../tutorial.html" />
+    <link rel="next" title="文件上传" href="upload.html" />
+    <link rel="prev" title="插件开发" href="plugin.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+
+  </head>
+  <body role="document">
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../index.html">smartsys 1.0 documentation</a> &raquo;</li>
+          <li><a href="../tutorial.html" accesskey="U">使用教程</a> &raquo;</li> 
+      </ul>
+    </div>
+    
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>缓存规范<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>这里简单的整理规范设备管理系统用到的缓存键值，包括redis和memcached，为大家以后使用或增加新键值提供方便查询，有问题及时反馈谢谢！</p>
+<div class="section" id="memcache">
+<h2>memcache键值说明<a class="headerlink" href="#memcache" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># 管理员登录session键名,通过以下key可以取到管理员登陆账号</span>
+SESSION_LOGIN
+eg: <span class="o">{</span><span class="s1">&#39;SESSION_LOGIN&#39;</span>: <span class="s1">&#39;admin&#39;</span><span class="o">}</span>
+
+<span class="c1"># 用户登陆账号，通过以下key可以取到一般用户登陆的账号</span>
+SESSION_USER_ID
+eg: <span class="o">{</span><span class="s1">&#39;SESSION_USER_ID&#39;</span>: <span class="s1">&#39;xyjadmin&#39;</span><span class="o">}</span>
+
+<span class="c1"># 厂商编号（数字），通过以下key可以取到厂商的数字编号</span>
+SESSION_FACTORY_ID
+eg: <span class="o">{</span><span class="s1">&#39;SESSION_FACTORY_ID&#39;</span>: 3<span class="o">}</span>
+
+<span class="c1"># 厂商唯一标识符，通过以下key可以取到厂商的UUID唯一标识</span>
+SESSION_FACTORY_UID
+eg: <span class="o">{</span><span class="s1">&#39;SESSION_FACTORY_UID&#39;</span>: <span class="s1">&#39;ddb4c038-579a-11e5-9e88-00a0d1eb6068&#39;</span><span class="o">}</span>
+
+<span class="c1"># 代理商编号（数字），通过以下key可以取到代理商数字编号</span>
+SESSION_AGENCY_ID
+eg: <span class="o">{</span><span class="s1">&#39;SESSION_AGENCY_ID&#39;</span>: 6<span class="o">}</span>
+
+<span class="c1"># 代理商唯一标识，通过以下key可以取到代理商的UUID唯一标识</span>
+SESSION_AGENCY_UID
+eg: <span class="o">{</span><span class="s1">&#39;SESSION_AGENCY_UID&#39;</span>: <span class="s1">&#39;9bf4f29e-9d81-11e5-af75-00a0d1edbe70&#39;</span><span class="o">}</span>
+
+<span class="c1"># 用户类型，通过以下key可以取到登陆系统的用户类型，说明1：管理员，2：厂商，3：代理商</span>
+SESSION_USER_TYPE
+eg: <span class="o">{</span><span class="s1">&#39;SESSION_USER_TYPE&#39;</span>: 1<span class="o">}</span>
+
+<span class="c1"># 用户系统皮肤，通过以下key可以取到用户保存的皮肤类型，目前有‘skin-green-dark’，‘skin-black’</span>
+SESSION_SKIN
+eg: <span class="o">{</span><span class="s1">&#39;SESSION_SKIN&#39;</span>: <span class="s1">&#39;skin-green-dark&#39;</span><span class="o">}</span>
+
+<span class="c1"># 用户头像地址，通过以下key可以取到用户保存的头像地址</span>
+SESSION_HEAD_PORTRAIT
+eg: <span class="o">{</span><span class="s1">&#39;SESSION_HEAD_PORTRAIT&#39;</span>: <span class="s1">&#39;http://wx.qlogo.cn/mmopen/1J94t9spd9G6icKAPXjsUyeDxJZZV5bhnCIGuxBRlfypicwNicNw80X36caib1YgQVg4bzhDTOnFzBicxpRFWo91ThTt6aVcjXjeib/0&#39;</span><span class="o">}</span>
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h3>安全相关<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># 登录次数(失败一次后需要输入验证码)，通过以下key可以取到当前尝试登陆次数</span>
+SESSION_LOGIN_TIME
+eg: <span class="o">{</span><span class="s1">&#39;SESSION_LOGIN_TIME&#39;</span>: 1<span class="o">}</span>
+
+<span class="c1"># 短息验证码，通过以下可以取到1分钟内申请的短息验证码</span>
+SESSION_LOGIN_VALIDATE
+eg: <span class="o">{</span><span class="s1">&#39;SESSION_LOGIN_VALIDATE&#39;</span>: <span class="s1">&#39;356845&#39;</span><span class="o">}</span>
+
+<span class="c1"># 登录重定向uri，通过以下key可以取到当前重定向的url地址</span>
+SESSION_REDIRECT_URI
+eg: <span class="o">{</span><span class="s1">&#39;SESSION_REDIRECT_URI&#39;</span>: <span class="s1">&#39;/device&#39;</span><span class="o">}</span>
+
+<span class="c1"># 发送洗涤命令，通过以下key可以取到最近一次通过后台发送的洗衣机操作命令(有疑问？？？？）</span>
+SESSION_SEND_WASH_CMD
+eg: <span class="o">{</span><span class="s1">&#39;SESSION_SEND_WASH_CMD&#39;</span>: <span class="s1">&#39;&#39;</span><span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="redis">
+<h2>redis键值说明<a class="headerlink" href="#redis" title="Permalink to this headline">¶</a></h2>
+<p>设备管理系统使用的库主要是DB2和DB4</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># 短信验证码前缀，超时时间10分钟，通过以下key可以从redis中取到最近10分钟保存的短息验证码</span>
+sms_check_code_prefix_+<span class="o">{</span>user_id<span class="o">}</span>
+eg: <span class="o">{</span><span class="s1">&#39;sms_check_code_prefix_xyjadmin&#39;</span>: <span class="s1">&#39;236854&#39;</span><span class="o">}</span>
+
+<span class="c1"># 通过洗衣机的mac取得对应编号，无超时时间</span>
+mac_prefix_+<span class="o">{</span>C893464254<span class="o">}</span>
+eg: <span class="o">{</span><span class="s1">&#39;mac_prefix_+C893464254&#39;</span> : <span class="s1">&#39;XYJ0000001&#39;</span><span class="o">}</span>
+
+<span class="c1"># 通过device_id查找factory_uid前缀</span>
+factory_uid_by_device_id_+<span class="o">{</span>device_id<span class="o">}</span>
+eg: <span class="o">{</span><span class="s1">&#39;factory_uid_by_device_id_XYJ0000001&#39;</span>: <span class="s1">&#39;cd396786-579a-11e5-9e88-00a0d1eb6068&#39;</span><span class="o">}</span>
+
+<span class="c1"># 推荐商品版本键，通过以下key可以取到当前准备推荐的商品的版本编号</span>
+kitchen_easy_goods_version
+eg: <span class="o">{</span><span class="s1">&#39;kitchen_easy_goods_version&#39;</span>: 123<span class="o">}</span>
+
+<span class="c1"># 送水电话前缀，通过以下key可以取到某台设备绑定的送水电话</span>
+kitchen_easy_telephone_prefix_+<span class="o">{</span>device_id<span class="o">}</span>
+eg: <span class="o">{</span><span class="s1">&#39;kitchen_easy_telephone_prefix_100000215&#39;</span>: <span class="s1">&#39;15267186539&#39;</span><span class="o">}</span>
+</pre></div>
+</div>
+<p>DB2(友联洗衣机项目用到)</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># 根据设备别名 查 设备编号</span>
+alias_prefix_+<span class="o">{</span>XYJ0000001<span class="o">}</span>
+eg:
+<span class="c1"># 键名：alias_prefix_C893464C67B2</span>
+<span class="c1"># 键值如下（字符串）：</span>
+<span class="o">{</span>
+<span class="s2">&quot;fields&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;device_latitude&quot;</span>: <span class="s2">&quot;45.77322463&quot;</span>,
+    <span class="s2">&quot;device_ip&quot;</span>: <span class="s2">&quot;218.203.63.168&quot;</span>,
+    <span class="s2">&quot;device_city&quot;</span>: <span class="s2">&quot;哈尔滨市&quot;</span>,
+    <span class="s2">&quot;device_tag&quot;</span>: <span class="s2">&quot;&quot;</span>,
+    <span class="s2">&quot;device_type&quot;</span>: 1,
+    <span class="s2">&quot;device_county&quot;</span>: <span class="s2">&quot;&quot;</span>,
+    <span class="s2">&quot;device_alias&quot;</span>: <span class="s2">&quot;XYJ0000167&quot;</span>,
+    <span class="s2">&quot;factory_id&quot;</span>: 4,
+    <span class="s2">&quot;device_province&quot;</span>: <span class="s2">&quot;黑龙江省&quot;</span>,
+    <span class="s2">&quot;device_is_online&quot;</span>: 0,
+    <span class="s2">&quot;device_longitude&quot;</span>: <span class="s2">&quot;126.65771686&quot;</span>,
+    <span class="s2">&quot;device_model&quot;</span>: <span class="s2">&quot;&quot;</span>,
+    <span class="s2">&quot;device_property&quot;</span>: <span class="s2">&quot;{\&quot;wash_mode\&quot;: [{\&quot;alias\&quot;: \&quot;strong\&quot;, \&quot;time\&quot;: 3480, \&quot;fee\&quot;: 5, \&quot;name\&quot;: \&quot;\\u52a0\\u5f3a\\u6d17\&quot;}, {\&quot;alias\&quot;: \&quot;standard\&quot;, \&quot;time\&quot;: 2400, \&quot;fee\&quot;: 4, \&quot;name\&quot;: \&quot;\\u6807\\u51c6\\u6d17\&quot;}, {\&quot;alias\&quot;: \&quot;quick\&quot;, \&quot;time\&quot;: 1500, \&quot;fee\&quot;: 3, \&quot;name\&quot;: \&quot;\\u5feb\\u901f\\u6d17\&quot;}, {\&quot;alias\&quot;: \&quot;molt\&quot;, \&quot;time\&quot;: 540, \&quot;fee\&quot;: 1, \&quot;name\&quot;: \&quot;\\u5355\\u8131\\u6c34\&quot;}]}&quot;</span>,
+    <span class="s2">&quot;protocol_id&quot;</span>: 5,
+    <span class="s2">&quot;device_create_date&quot;</span>: <span class="s2">&quot;2016-01-12T16:15:38&quot;</span>,
+    <span class="s2">&quot;agency_id&quot;</span>: 1,
+    <span class="s2">&quot;device_mac&quot;</span>: <span class="s2">&quot;&quot;</span>,
+    <span class="s2">&quot;dt_id&quot;</span>: 4,
+        <span class="s2">&quot;device_address&quot;</span>: <span class="s2">&quot;黑龙江省哈尔滨市&quot;</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;model&quot;</span>: <span class="s2">&quot;api.device&quot;</span>,
+    <span class="s2">&quot;pk&quot;</span>: <span class="s2">&quot;860719024423737&quot;</span>
+<span class="o">}</span>
+
+<span class="c1"># 友联优惠信息配置缓存</span>
+<span class="c1"># 键名：uline_discount_setup</span>
+<span class="c1"># 键值示例：</span>
+<span class="o">{</span><span class="s2">&quot;DISCOUNT_LAST_DAYS&quot;</span>: <span class="s2">&quot;30&quot;</span>, <span class="s2">&quot;DISCOUNT_CONTENT_2&quot;</span>: <span class="s2">&quot;\uff08\u9996\u6b21\u4f7f\u7528\u4f18\u60e0\u4ef7\uff09&quot;</span>, <span class="s2">&quot;DISCOUNT_START&quot;</span>: <span class="s2">&quot;20150222080000&quot;</span>,
+<span class="s2">&quot;DISCOUNT_CONTENT_1&quot;</span>: <span class="s2">&quot;\uff08\u5206\u4eab\u670b\u53cb\u5708\u4f18\u60e0\u4ef7\uff09&quot;</span>, <span class="s2">&quot;DISCOUNT_PRICE&quot;</span>: <span class="s2">&quot;0.01&quot;</span><span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">缓存规范</a><ul>
+<li><a class="reference internal" href="#memcache">memcache键值说明</a><ul>
+<li><a class="reference internal" href="#id2">安全相关</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#redis">redis键值说明</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="plugin.html"
+                        title="previous chapter">插件开发</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="upload.html"
+                        title="next chapter">文件上传</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="upload.html" title="文件上传"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="plugin.html" title="插件开发"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, 53iq.
+    </div>
+  </body>
+</html>

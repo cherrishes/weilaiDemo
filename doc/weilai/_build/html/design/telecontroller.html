@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>遥控器 &mdash; smartsys 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="top" title="smartsys 1.0 documentation" href="../index.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+
+  </head>
+  <body role="document">
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../index.html">smartsys 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>遥控器<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>遥控器状态同步<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>终端反馈过来的状态，类型为1,值&#8221;0|0|0|0|0|0|0|0|0&#8221;,代表&#8221;电源|照明|大风|小风|消毒|烘干|延时|中风|蜂鸣&#8221;</li>
+<li>电源的值有0和1,0表示关闭，1表示打开，其它的任何按钮处于打开状态时，电源键的状态都必须是打开的</li>
+<li>照明的值有0和1,0表示关闭，1表示打开</li>
+<li>大风的值为0和1,0表示关闭，1表示打开，大风与小风的激活状态是互斥的，也就是开大风时小风必须关闭，开小风时打开必须关闭</li>
+<li>小风的值为0和1,0表示关闭，1表示打开，状态说明同大风</li>
+<li>消毒的值为0和1，0表示关闭，1表示打开，消毒与烘干是互斥的</li>
+<li>烘干的值为0和1，0表示关闭，1表示打开，消毒与烘干是互斥的</li>
+<li>延时的值为0和1，0表示关闭，1表示打开</li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h2>遥控器控制命令<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>xmpp部分的命令查看“终端控制指令.xmind”</p>
+</div>
+<div class="section" id="id4">
+<h2>油烟机遥控器<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>不带集成灶的油烟机<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>风速</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span>大风、小风、中风，这3个风速是互斥的，也就是有一个打开时，另外几个必须是关闭的
+</pre></div>
+</div>
+<ul class="simple">
+<li>延时</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># 延时是相对于风速而言的，就是起到延时关闭风扇的功能。</span>
+<span class="c1"># 只有打开风速时点击延时才有效果，否则点击无反应;当开启延时时，再点击风速时就直接关闭掉风速和延时。</span>
+<span class="c1"># 当风速和延时同时开启时，再点击延时时关闭延时，但不关闭风速。</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>照明</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3>带集成灶的油烟机<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>增加的按钮：消毒、烘干、自动，其中“自动”是指按下该键后，自动在消毒和烘干之间切换</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">遥控器</a><ul>
+<li><a class="reference internal" href="#id2">遥控器状态同步</a></li>
+<li><a class="reference internal" href="#id3">遥控器控制命令</a></li>
+<li><a class="reference internal" href="#id4">油烟机遥控器</a><ul>
+<li><a class="reference internal" href="#id5">不带集成灶的油烟机</a></li>
+<li><a class="reference internal" href="#id6">带集成灶的油烟机</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, 53iq.
+    </div>
+  </body>
+</html>

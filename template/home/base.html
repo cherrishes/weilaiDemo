@@ -1,0 +1,191 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}-微来科技</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <style>
+        .panel-control{
+            position: relative;
+            height: 88px;
+            background: url("{% static 'img/name_bg.png' %}") no-repeat;
+            background-size: cover;
+            padding-left: 0.5em;
+            line-height: 50px;
+        }
+    </style>
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <div class="page-group">
+    <div class="page" id="page-index">
+  <header class="bar bar-nav">
+    <a class="icon icon-me pull-left open-panel" data-panel=".panel-left"></a>
+    <a class="button button-link button-nav pull-right open-popup" data-popup=".popup-about">
+      关于
+      <span class="icon icon-menu"></span>
+    </a>
+    {% block pagetitle %}<h1 class="title">微来科技</h1>{% endblock %}
+
+  </header>
+  <div class="bar bar-standard bar-footer">
+    <a class="icon icon-edit pull-left"></a>
+    <a class="icon icon-settings pull-right open-panel" data-panel=".panel-right"></a>
+  </div>
+  {% block content %}{% endblock %}
+
+</div>
+<div class="popup popup-about">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-right close-popup">
+      关闭
+    </a>
+    <h1 class="title">关于微来科技</h1>
+  </header>
+  <div class="content">
+    <div class="content-inner">
+      <div class="content-block" style="padding-left: 10px;padding-right: 10px">
+        <p>《微来》是一个能够帮您高效完成任务和规划时间的应用。它能帮您随时随地记录并同步工作、生活中的所有任务，能灵巧、清晰的管理您的每一个任务，让您在管理和规划未来的时间中事半功倍。</p>
+        <p>《微来》最常见的使用场景是作为用户的待办事项清单，可以用它生成例如学习计划、工作计划、书单、购物清单、旅行和娱乐清单等，除此之外，还可以随时随地记录例如自己的点子，提醒家人和朋友的生日、抢购商品等一切未来发生的任务。</p>
+
+        <p></p>
+        <p><a class="button close-popup">确定</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel-overlay"></div>
+<!-- Left Panel with Reveal effect -->
+<div class="panel panel-left panel-reveal">
+  <div class="content-block">
+{#    <p>这是一个侧栏</p>#}
+      <div class="panel-control"><img class="panel-img" src="{% static 'img/ty.jpg'  %}"><p class="panel-name">他们说我名字很长</p></div>
+
+    <ul class="panel-menu">
+        <li class="panel-href" id="panel-first" target="/home"><img src="{% static 'img/icon/calendar_today.ico' %}"><a>今天</a></li>
+        <li class="panel-href" id="panel-second" target="/week_list"><img style="top:15px" src="{% static 'img/icon/Box.ico' %}"><a>收集箱</a></li>
+        <li class="panel-href" id="panel-third"><img src="{% static 'img/icon/calendar.ico' %}"><a>日历</a></li>
+        <li class="panel-href" id="panel-fourth"><img src="{% static 'img/icon/Organization_structure.ico' %}"><a>组织</a></li>
+        <li class="panel-href" id="panel-fifth"><img src="{% static 'img/icon/file.ico' %}"><a>个人</a></li>
+        <li class="panel-href" id="panel-sixth" target="/fun"><img src="{% static 'img/icon/folder_heart.ico' %}"><a>娱乐</a></li>
+        <li class="panel-href" id="panel-seventh"><img src="{% static 'img/icon/close.ico' %}"><a>已关闭清单</a></li>
+    </ul>
+  </div>
+</div>
+<div class="panel panel-right panel-cover">
+  <div class="content-block">
+    <p>这是右侧栏，panel-cover模式</p>
+    <p></p>
+    <!-- Click on link with "close-panel" class will close panel -->
+    <p><a href="#" class="close-panel">关闭</a></p>
+  </div>
+</div>
+</div>
+
+    <div class="popup-cover">
+        <div class="fast-transition">
+            <div id="project-modal-detail-view">
+                <div class="popup-header">
+                    <a class="popup-close close">×</a>
+                    <h1 class="popup-title text-lrg text-primary">创建任务清单</h1>
+                </div>
+                <div class="popup-body">
+                    <div class="project-detail-panel">
+                        <div class="row">
+                            <input class="project-name input-lrg" id="pro-name" type="text" placeholder="名称" value="">
+                            <p class="help-inline warn text-alert text-sml">清单名称不能为空</p>
+                        </div>
+                        <div class="row">
+                            <div class="showinall-label">
+                                <p class="text-secondary line-sml">
+                                    在“所有”中隐藏
+                                </p>
+                                <p class="text-info text-sml line-sml">
+                                    启用后，该清单中的任务将不会在“所有”、“今天”、“最近7天”等智能清单中显示，不过任务到期时依然会提醒。
+                                </p>
+                            </div>
+                            <div class="item-content">
+                                <div class="item-media"><i class="icon icon-form-toggle"></i></div>
+                                <div class="item-inner">
+
+                                  <div class="item-input">
+                                    <label class="label-switch">
+                                      <input type="checkbox">
+                                      <div class="checkbox"></div>
+                                    </label>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="content-block">
+                              <div class="row">
+                                 <div class="col-50"><a href="#" class="button button-big button-fill button-success" id="SaveData">保存</a></div>
+                                 <div class="col-50"><a href="#" class="button button-big button-fill button-danger close">取消</a></div>
+
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+  </body>
+{#<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.js' charset='utf-8'></script>#}
+<script src="{% static 'js/zepto.merge.min.js' %}"></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.js' charset='utf-8'></script>
+{#<script src="{% static 'js/toucher.js' %}"></script>#}
+<script>
+    $(function(){
+
+        $(".panel-href").bind('touchstart', function(){
+                $(this).addClass('panel-native')
+            });
+            $(".panel-href").bind('touchend', function(){
+                var hr = $(this).attr('target');
+
+                $(this).removeClass('panel-native');
+                if (hr!=null){
+                window.location.href=hr
+            }
+            });
+
+            $(".icon-edit").bind('tap', function(){
+               $('.popup-cover').addClass('show')
+            });
+        $(".close").bind('tap', function(){
+            $('.popup-cover').removeClass('show')
+        });
+        $("#SaveData").bind('tap', function(){
+            var pro_name = $("#pro-name").val().trim();
+            if (pro_name==''){
+                $(".help-inline").show()
+            }
+            else{
+                $(".help-inline").hide();
+                $("#pro-name").val('');
+                $.alert('暂时还不能添加');
+            }
+        });
+
+{#         var bodyTouch = util.toucher($('.content-main')[0]);#}
+{#        // 右划事件#}
+{#        bodyTouch.on('swipeRight', function () {#}
+{#           var panel = $(".panel-left");#}
+{#            $.openPanel(panel);#}
+{##}
+{#        });#}
+    })
+</script>
+{% block script %}{% endblock %}
+</html>

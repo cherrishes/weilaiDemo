@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>项目规范 &mdash; smartsys 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="top" title="smartsys 1.0 documentation" href="index.html" />
+    <link rel="next" title="开发环境" href="environment.html" />
+    <link rel="prev" title="智能设备管理系统文档" href="index.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+
+  </head>
+  <body role="document">
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="index.html">smartsys 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>项目规范<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>前端<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>代码<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>标签id的命名采用匈牙利命名法，比如 &lt;input type=&#8221;button&#8221; id=&#8221;btnSave&#8221; value=&#8221;保存&#8221;/&gt;</li>
+<li>样式的class以用途和效果来命名，比如：ui-box-content、ui-form-item-focus，具体可以参考支付宝通用样式库： <a class="reference external" href="http://aliceui.org/docs/widget.html">http://aliceui.org/docs/widget.html</a></li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h3>浏览器兼容<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>内部使用的可以只支持高版本的浏览器</li>
+<li>给用户使用的一般的系统，功能上必须支持IE8+;在不影响使用的情况下，样式上可以适当放松兼容性</li>
+<li>主要的展示类网站（比如官网），功能和样式都必须兼容IE8+、firefox最新版、chrome最新版</li>
+<li>PC版网站分辨率的兼容：1920*1080、1366*768、1440*900、1024*768、1600*900（<a class="reference external" href="http://tongji.baidu.com/data/screen">http://tongji.baidu.com/data/screen</a>）</li>
+<li>移动版只需支持ios、android的主流版本的浏览器即可</li>
+</ol>
+</div>
+</div>
+<div class="section" id="python">
+<h2>python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>代码书写规范遵循PEP8</li>
+<li>遵循DRY (Don&#8217;t Repeat Yourself) 原则，不要写重复的代码，相同的代码应该抽象出来</li>
+<li>虚拟环境名称:smartsysenv</li>
+</ol>
+</div>
+<div class="section" id="django">
+<h2>django<a class="headerlink" href="#django" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>视图名称与模板文件名称一致，url也尽量与视图名一致,比如配置了个url叫“login”，views.py中的视图叫“login”,模板文件叫“login.html”</li>
+<li>所有的静态资源都放在/static/目录下，所有的模板文件都放在/template/目录下</li>
+</ol>
+</div>
+<div class="section" id="id5">
+<h2>布局<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>分页全部放到内容底部</li>
+</ol>
+</div>
+<div class="section" id="id6">
+<h2>其它<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>不要在代码里将数据库的连接信息、缓存连接信息等写死，要保存在配置文件中</li>
+<li>所有的配置文件都必须保存在 /conf/目录下，包括session、cookie、cache</li>
+<li>修改文件前一定要先更新svn，提交之前先更新</li>
+<li>不要重复造轮子，有现成的框架就用现成的</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">项目规范</a><ul>
+<li><a class="reference internal" href="#id2">前端</a><ul>
+<li><a class="reference internal" href="#id3">代码</a></li>
+<li><a class="reference internal" href="#id4">浏览器兼容</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python">python</a></li>
+<li><a class="reference internal" href="#django">django</a></li>
+<li><a class="reference internal" href="#id5">布局</a></li>
+<li><a class="reference internal" href="#id6">其它</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">智能设备管理系统文档</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="environment.html"
+                        title="next chapter">开发环境</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="environment.html" title="开发环境"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="智能设备管理系统文档"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, 53iq.
+    </div>
+  </body>
+</html>

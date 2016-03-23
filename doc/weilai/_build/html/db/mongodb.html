@@ -1,0 +1,2252 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mongodb &mdash; smartsys 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="top" title="smartsys 1.0 documentation" href="../index.html" />
+    <link rel="up" title="数据库设计" href="../db.html" />
+    <link rel="next" title="项目介绍" href="../intro.html" />
+    <link rel="prev" title="mysql" href="mysql.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+
+  </head>
+  <body role="document">
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../index.html">smartsys 1.0 documentation</a> &raquo;</li>
+          <li><a href="../db.html" accesskey="U">数据库设计</a> &raquo;</li> 
+      </ul>
+    </div>
+    
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="mongodb">
+<h1>mongodb<a class="headerlink" href="#mongodb" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>基本信息<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>使用mongodb数据库</li>
+<li>主机：192.168.0.62</li>
+<li>数据库名称：ebdb_smartsys</li>
+<li>帐号：smartsys</li>
+<li>密码：smartsys.com</li>
+<li>端口号：27017</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>集合结构<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>说明：</p>
+<ul class="simple">
+<li>保存到数据库的时间均用utc时间</li>
+</ul>
+<div class="section" id="c-record">
+<h3>c_record(统计服务记录集合)<a class="headerlink" href="#c-record" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="36%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId</td>
+<td>自动生成的唯一标识</td>
+</tr>
+<tr class="row-odd"><td>factory_id</td>
+<td>字符串</td>
+<td>厂商编号</td>
+</tr>
+<tr class="row-even"><td>device_id</td>
+<td>字符串</td>
+<td>设备编号</td>
+</tr>
+<tr class="row-odd"><td>good_id</td>
+<td>字符串</td>
+<td>商品编号</td>
+</tr>
+<tr class="row-even"><td>remark</td>
+<td>字符串</td>
+<td>备注</td>
+</tr>
+<tr class="row-odd"><td>_created</td>
+<td>日期(datetime)</td>
+<td>创建时间</td>
+</tr>
+<tr class="row-even"><td>_updated</td>
+<td>日期(datetime)</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+<p>示例数据:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s2">&quot;55f0efe63ea0761b01ac6f20&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;factory_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;123456&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;device_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;654321&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;good_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;123&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ip&quot;</span> <span class="p">:</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;remark&quot;</span> <span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;_created&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2015-09-10T02:50:14.451Z&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;_updated&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2015-09-10T02:50:14.451Z&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="c-total">
+<h3>c_total(统计服务统计集合)<a class="headerlink" href="#c-total" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="31%" />
+<col width="51%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId</td>
+<td>自动生成的唯一标识</td>
+</tr>
+<tr class="row-odd"><td>factory_id</td>
+<td>字符串</td>
+<td>厂商编号</td>
+</tr>
+<tr class="row-even"><td>device_id</td>
+<td>字符串</td>
+<td>设备编号</td>
+</tr>
+<tr class="row-odd"><td>good_id</td>
+<td>字符串</td>
+<td>商品编号</td>
+</tr>
+<tr class="row-even"><td>count</td>
+<td>数字(number)</td>
+<td>总数</td>
+</tr>
+<tr class="row-odd"><td>_created</td>
+<td>日期(datetime)</td>
+<td>创建时间,省略小时以后部分(代表时间段)</td>
+</tr>
+<tr class="row-even"><td>_updated</td>
+<td>日期(datetime)</td>
+<td>创建时间,省略小时以后部分(代表时间段)</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明</p>
+<ul class="simple">
+<li>统计服务统计集合的_created代表的是时间段,1:00:00-1:59:59时间都用1:00:00表示.</li>
+</ul>
+<p>示例数据:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s2">&quot;55f0efe63ea0761b01ac6f21&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;factory_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;123456&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;device_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;654321&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;good_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;123&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;count&quot;</span> <span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="s2">&quot;_created&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2015-09-10T02:00:00.000Z&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;_updated&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2015-09-10T02:00:00.000Z&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ebc-db-backup">
+<h3>ebc_db_backup(数据库备份集合)<a class="headerlink" href="#ebc-db-backup" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="36%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>filename</td>
+<td>字符串</td>
+<td>保存的文件名，还原时用</td>
+</tr>
+<tr class="row-even"><td>creat_time</td>
+<td>日期</td>
+<td>创建时间</td>
+</tr>
+<tr class="row-odd"><td>database_name</td>
+<td>字符串</td>
+<td>数据库名称</td>
+</tr>
+<tr class="row-even"><td>location</td>
+<td>字符串</td>
+<td>文件保存位置</td>
+</tr>
+<tr class="row-odd"><td>remark</td>
+<td>字符串</td>
+<td>备注</td>
+</tr>
+<tr class="row-even"><td>database_type</td>
+<td>字符串</td>
+<td>数据库类型</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ebc-plugin">
+<h3>ebc_plugin(页面插件显示集合)<a class="headerlink" href="#ebc-plugin" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="36%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>字符串</td>
+<td>名称</td>
+</tr>
+<tr class="row-even"><td>version</td>
+<td>浮点型</td>
+<td>版本</td>
+</tr>
+<tr class="row-odd"><td>upload_time</td>
+<td>字符串</td>
+<td>上传时间</td>
+</tr>
+<tr class="row-even"><td>auth</td>
+<td>字符串</td>
+<td>作者</td>
+</tr>
+<tr class="row-odd"><td>description</td>
+<td>字符串</td>
+<td>描述</td>
+</tr>
+<tr class="row-even"><td>alias</td>
+<td>字符串</td>
+<td>别名</td>
+</tr>
+<tr class="row-odd"><td>extension</td>
+<td>列表</td>
+<td>[&#8220;device&#8221;,&#8221;repair&#8221;]</td>
+</tr>
+<tr class="row-even"><td>icon</td>
+<td>字符串</td>
+<td>图标</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ebc-plugin-history">
+<h3>ebc_plugin_history(插件历史集合)<a class="headerlink" href="#ebc-plugin-history" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="36%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>字符串</td>
+<td>名称</td>
+</tr>
+<tr class="row-even"><td>version</td>
+<td>浮点型</td>
+<td>版本</td>
+</tr>
+<tr class="row-odd"><td>upload_time</td>
+<td>字符串</td>
+<td>上传时间</td>
+</tr>
+<tr class="row-even"><td>auth</td>
+<td>字符串</td>
+<td>作者</td>
+</tr>
+<tr class="row-odd"><td>description</td>
+<td>字符串</td>
+<td>描述</td>
+</tr>
+<tr class="row-even"><td>alias</td>
+<td>字符串</td>
+<td>别名</td>
+</tr>
+<tr class="row-odd"><td>extension</td>
+<td>列表</td>
+<td>[&#8220;device&#8221;,&#8221;repair&#8221;]</td>
+</tr>
+<tr class="row-even"><td>icon</td>
+<td>字符串</td>
+<td>图标</td>
+</tr>
+<tr class="row-odd"><td>back_dir</td>
+<td>字符串</td>
+<td>备份地址</td>
+</tr>
+<tr class="row-even"><td>delate_time</td>
+<td>字符串</td>
+<td>删除时间</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ebc-group">
+<h3>ebc_group(好友分组集合)<a class="headerlink" href="#ebc-group" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="36%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>user_id</td>
+<td>字符串</td>
+<td>用户账号</td>
+</tr>
+<tr class="row-even"><td>name</td>
+<td>字符串</td>
+<td>分组名称</td>
+</tr>
+<tr class="row-odd"><td>create_date</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ebc-friends">
+<h3>ebc_friends(好友集合)<a class="headerlink" href="#ebc-friends" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="36%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>user_id</td>
+<td>字符串</td>
+<td>用户账号</td>
+</tr>
+<tr class="row-even"><td>friend_id</td>
+<td>字符串</td>
+<td>好友账号</td>
+</tr>
+<tr class="row-odd"><td>group_id</td>
+<td>ObjectId</td>
+<td>分组id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ebc-wash">
+<h3>ebc_wash(洗涤记录集合)<a class="headerlink" href="#ebc-wash" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="30%" />
+<col width="53%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>device_id</td>
+<td>字符串</td>
+<td>设备编号</td>
+</tr>
+<tr class="row-even"><td>user_id</td>
+<td>字符串</td>
+<td>用户账号</td>
+</tr>
+<tr class="row-odd"><td>pay_trade_no</td>
+<td>字符串(唯一)</td>
+<td>支付订单号</td>
+</tr>
+<tr class="row-even"><td>status</td>
+<td>32位整型</td>
+<td>洗涤状态(1:正常，2：故障,3:预约)</td>
+</tr>
+<tr class="row-odd"><td>is_finished</td>
+<td>boolean</td>
+<td>是否结束（true：结束，false：未结束）</td>
+</tr>
+<tr class="row-even"><td>pay_fee</td>
+<td>64位浮点数</td>
+<td>支付费用</td>
+</tr>
+<tr class="row-odd"><td>wash_mode</td>
+<td>字符串</td>
+<td>洗涤模式</td>
+</tr>
+<tr class="row-even"><td>wash_time</td>
+<td>32位整型</td>
+<td>洗涤时间(单位秒)</td>
+</tr>
+<tr class="row-odd"><td>start_date</td>
+<td>日期(UTC时间)</td>
+<td>洗涤开始时间</td>
+</tr>
+<tr class="row-even"><td>end_date</td>
+<td>日期(UTC时间)</td>
+<td>洗涤结束时间</td>
+</tr>
+<tr class="row-odd"><td>create_date</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ebc-wash-history">
+<h3>ebc_wash_history(洗涤记录历史集合)<a class="headerlink" href="#ebc-wash-history" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="30%" />
+<col width="53%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>device_id</td>
+<td>字符串</td>
+<td>设备编号</td>
+</tr>
+<tr class="row-even"><td>user_id</td>
+<td>字符串</td>
+<td>用户账号</td>
+</tr>
+<tr class="row-odd"><td>pay_trade_no</td>
+<td>字符串(唯一)</td>
+<td>支付订单号</td>
+</tr>
+<tr class="row-even"><td>status</td>
+<td>32位整型</td>
+<td>洗涤状态(1:正常，2：故障,3:预约)</td>
+</tr>
+<tr class="row-odd"><td>is_finished</td>
+<td>boolean</td>
+<td>是否结束（true：结束，false：未结束）</td>
+</tr>
+<tr class="row-even"><td>pay_fee</td>
+<td>64位浮点数</td>
+<td>支付费用</td>
+</tr>
+<tr class="row-odd"><td>wash_mode</td>
+<td>字符串</td>
+<td>洗涤模式</td>
+</tr>
+<tr class="row-even"><td>wash_time</td>
+<td>32位整型</td>
+<td>洗涤时间(单位秒)</td>
+</tr>
+<tr class="row-odd"><td>start_date</td>
+<td>日期(UTC时间)</td>
+<td>洗涤开始时间</td>
+</tr>
+<tr class="row-even"><td>end_date</td>
+<td>日期(UTC时间)</td>
+<td>洗涤结束时间</td>
+</tr>
+<tr class="row-odd"><td>create_date</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+<tr class="row-even"><td>delete_date</td>
+<td>日期(UTC时间)</td>
+<td>删除时间</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ebc-share">
+<h3>ebc_share(分享记录集合)<a class="headerlink" href="#ebc-share" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="31%" />
+<col width="51%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>share_id</td>
+<td>字符串（唯一）</td>
+<td>由app产生的唯一id</td>
+</tr>
+<tr class="row-even"><td>user_id</td>
+<td>字符串</td>
+<td>用户账号</td>
+</tr>
+<tr class="row-odd"><td>device_id</td>
+<td>字符串</td>
+<td>设备编号</td>
+</tr>
+<tr class="row-even"><td>title</td>
+<td>字符串</td>
+<td>标题</td>
+</tr>
+<tr class="row-odd"><td>content</td>
+<td>字符串</td>
+<td>内容</td>
+</tr>
+<tr class="row-even"><td>type</td>
+<td>32位整型</td>
+<td>分享类型(1:qq,2:微信,3:新浪微博)</td>
+</tr>
+<tr class="row-odd"><td>count</td>
+<td>32位整型</td>
+<td>浏览次数</td>
+</tr>
+<tr class="row-even"><td>address</td>
+<td>字符串</td>
+<td>设备地址</td>
+</tr>
+<tr class="row-odd"><td>create_date</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ebc-user-device">
+<h3>ebc_user_device(用户设备集合)<a class="headerlink" href="#ebc-user-device" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="32%" />
+<col width="51%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>字符串（唯一）</td>
+<td>用户编号和设备编号拼接而成</td>
+</tr>
+<tr class="row-odd"><td>user_id</td>
+<td>字符串</td>
+<td>用户账号</td>
+</tr>
+<tr class="row-even"><td>device_id</td>
+<td>字符串</td>
+<td>设备编号</td>
+</tr>
+<tr class="row-odd"><td>is_unbind</td>
+<td>boolean</td>
+<td>是否解绑（true:解绑，false:未解绑）</td>
+</tr>
+<tr class="row-even"><td>create_date</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明</p>
+<ol class="arabic simple">
+<li>该集合的记录是由用户扫描二维码后产生的</li>
+</ol>
+</div>
+<div class="section" id="ebc-status">
+<h3>ebc_status(设备状态集合)<a class="headerlink" href="#ebc-status" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="29%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>device_id</td>
+<td>字符串</td>
+<td>设备编号</td>
+</tr>
+<tr class="row-even"><td>is_online</td>
+<td>boolean</td>
+<td>是否在线（true:在线，false:离线）</td>
+</tr>
+<tr class="row-odd"><td>status</td>
+<td>32位整型</td>
+<td>当前状态（0：空闲，1：工作中，2：故障）</td>
+</tr>
+<tr class="row-even"><td>wash_time</td>
+<td>32位整型</td>
+<td>洗涤时长（单位秒）&#8211;友联用作剩余时间</td>
+</tr>
+<tr class="row-odd"><td>factory_uid</td>
+<td>字符串</td>
+<td>厂商唯一标识</td>
+</tr>
+<tr class="row-even"><td>agency_uid</td>
+<td>字符串</td>
+<td>代理商唯一标识</td>
+</tr>
+<tr class="row-odd"><td>update_date</td>
+<td>日期(UTC时间)</td>
+<td>状态更新时间</td>
+</tr>
+<tr class="row-even"><td>start_date</td>
+<td>日期(UTC时间)</td>
+<td>开始时间</td>
+</tr>
+<tr class="row-odd"><td>end_date</td>
+<td>日期(UTC时间)</td>
+<td>结束时间</td>
+</tr>
+<tr class="row-even"><td>create_date</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ebc-user-position">
+<h3>ebc_user_position(用户位置集合)<a class="headerlink" href="#ebc-user-position" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="36%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>字符串</td>
+<td>用户账号</td>
+</tr>
+<tr class="row-odd"><td>longitude</td>
+<td>64位浮点数</td>
+<td>经度</td>
+</tr>
+<tr class="row-even"><td>latitude</td>
+<td>64位浮点数</td>
+<td>纬度</td>
+</tr>
+<tr class="row-odd"><td>address</td>
+<td>字符串</td>
+<td>详细地址</td>
+</tr>
+<tr class="row-even"><td>update_date</td>
+<td>日期(UTC时间)</td>
+<td>更新时间</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明</p>
+<ol class="arabic simple">
+<li>用户位置坐标由app通过接口上报</li>
+</ol>
+</div>
+<div class="section" id="ebc-device-position">
+<h3>ebc_device_position(设备位置集合)<a class="headerlink" href="#ebc-device-position" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="36%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>字符串</td>
+<td>设备编号</td>
+</tr>
+<tr class="row-odd"><td>longitude</td>
+<td>64位浮点数</td>
+<td>经度</td>
+</tr>
+<tr class="row-even"><td>latitude</td>
+<td>64位浮点数</td>
+<td>纬度</td>
+</tr>
+<tr class="row-odd"><td>address</td>
+<td>字符串</td>
+<td>详细地址</td>
+</tr>
+<tr class="row-even"><td>update_date</td>
+<td>日期(UTC时间)</td>
+<td>更新时间</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明</p>
+<ol class="arabic simple">
+<li>设备位置坐标由代理商通过后台设置</li>
+</ol>
+</div>
+<div class="section" id="ebc-status-fault">
+<h3>ebc_status_fault(故障状态记录集合)<a class="headerlink" href="#ebc-status-fault" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="30%" />
+<col width="46%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>fault_msg</td>
+<td>字符串</td>
+<td>故障描述</td>
+</tr>
+<tr class="row-even"><td>factory_symbol</td>
+<td>字符串</td>
+<td>厂商标识</td>
+</tr>
+<tr class="row-odd"><td>fault_type</td>
+<td>字符串</td>
+<td>故障类型</td>
+</tr>
+<tr class="row-even"><td>fault_code</td>
+<td>字符串</td>
+<td>故障码</td>
+</tr>
+<tr class="row-odd"><td>deal_status</td>
+<td>字符串</td>
+<td>故障处理状态(详见补充说明)</td>
+</tr>
+<tr class="row-even"><td>device_id</td>
+<td>字符串</td>
+<td>设备编号</td>
+</tr>
+<tr class="row-odd"><td>device_type_id</td>
+<td>字符串</td>
+<td>设备类型</td>
+</tr>
+<tr class="row-even"><td>_created</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+<tr class="row-odd"><td>deal_date</td>
+<td>日期(UTC时间)</td>
+<td>处理时间</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明</p>
+<ol class="arabic simple">
+<li>deal_status=1表示本条故障已处理，deal_status=0表示本条故障未处理</li>
+</ol>
+<p>示例数据</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s2">&quot;565f94b316ec9c4b67094c6d&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;device_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;863004795&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;factory_symbol&quot;</span> <span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;_created&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2015-12-03T01:02:43.144Z&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;fault_msg&quot;</span> <span class="p">:</span> <span class="s2">&quot;漏电&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;device_type_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;fault_code&quot;</span> <span class="p">:</span> <span class="s2">&quot;128&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;fault_type&quot;</span> <span class="p">:</span> <span class="s2">&quot;0&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ebc-status-record">
+<h3>ebc_status_record(状态记录集合)<a class="headerlink" href="#ebc-status-record" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="36%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>type</td>
+<td>32位整型</td>
+<td>类型</td>
+</tr>
+<tr class="row-even"><td>mac</td>
+<td>字符串</td>
+<td>mac地址</td>
+</tr>
+<tr class="row-odd"><td>alias</td>
+<td>字符串</td>
+<td>设备编号（别名）</td>
+</tr>
+<tr class="row-even"><td>status</td>
+<td>32位整型</td>
+<td>设备运行状态</td>
+</tr>
+<tr class="row-odd"><td>status_server</td>
+<td>内嵌文档</td>
+<td>服务器上的设备状态</td>
+</tr>
+<tr class="row-even"><td>ip</td>
+<td>字符串</td>
+<td>设备ip地址</td>
+</tr>
+<tr class="row-odd"><td>create_date</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明</p>
+<ul class="simple">
+<li>type=1正常数据，type=2设备异常数据，type=3，校验错误重发</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span></span>status=0待机中
+status=1预约中
+status=2消毒清洁中
+status=3洗衣工作中
+status=4洗衣机洗涤结束
+status=5洗衣机自检中
+status=6进水超时
+status=7排水超时
+status=8脱水时撞桶
+status=9脱水开盖
+status=10水位传感器异常
+status=254产测中
+</pre></div>
+</div>
+</div>
+<div class="section" id="ebc-error-pay">
+<h3>ebc_error_pay(异常订单集合)<a class="headerlink" href="#ebc-error-pay" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="36%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>type</td>
+<td>32位整型</td>
+<td>异常类型</td>
+</tr>
+<tr class="row-even"><td>pay_type</td>
+<td>32位整型</td>
+<td>支付类型</td>
+</tr>
+<tr class="row-odd"><td>trade_no</td>
+<td>字符串</td>
+<td>订单号</td>
+</tr>
+<tr class="row-even"><td>trade_no_pay</td>
+<td>字符串</td>
+<td>支付平台订单号</td>
+</tr>
+<tr class="row-odd"><td>pay_fee</td>
+<td>64位浮点数</td>
+<td>支付费用</td>
+</tr>
+<tr class="row-even"><td>callback_data</td>
+<td>字符串</td>
+<td>支付平台回调数据</td>
+</tr>
+<tr class="row-odd"><td>create_date</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+<tr class="row-even"><td>factory_id</td>
+<td>32位整型</td>
+<td>厂商ID</td>
+</tr>
+<tr class="row-odd"><td>agency_id</td>
+<td>32位整型</td>
+<td>代理商ID</td>
+</tr>
+<tr class="row-even"><td>factory_name</td>
+<td>字符串</td>
+<td>厂商名称</td>
+</tr>
+<tr class="row-odd"><td>agency_name</td>
+<td>字符串</td>
+<td>代理商名称</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明</p>
+<ol class="arabic simple">
+<li>type=1表示订单不存在，type=2费用对不上，type=3支付失败，type=4付款失败，type=5退款失败，type=6命令发送失败</li>
+<li>pay_type=1：支付宝，pay_type=2：微信支付，pay_type=3：银联，pay_type=4：账户余额支付</li>
+</ol>
+</div>
+<div class="section" id="ebc-error-task">
+<h3>ebc_error_task(异常任务集合)<a class="headerlink" href="#ebc-error-task" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="36%" />
+<col width="44%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>type</td>
+<td>32位整型</td>
+<td>异常类型</td>
+</tr>
+<tr class="row-even"><td>mac</td>
+<td>字符串</td>
+<td>mac地址</td>
+</tr>
+<tr class="row-odd"><td>alias</td>
+<td>字符串</td>
+<td>设备编号（别名）</td>
+</tr>
+<tr class="row-even"><td>description</td>
+<td>字符串</td>
+<td>异常描述</td>
+</tr>
+<tr class="row-odd"><td>content</td>
+<td>字符串</td>
+<td>异常内容</td>
+</tr>
+<tr class="row-even"><td>status_server</td>
+<td>内嵌文档</td>
+<td>服务器上的设备状态</td>
+</tr>
+<tr class="row-odd"><td>ip</td>
+<td>字符串</td>
+<td>设备ip地址</td>
+</tr>
+<tr class="row-even"><td>create_date</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>type=1调用协议服务器接口异常（调用端记录）
+type=2表示超过重试次数(协议服务器记录)
+type=3反馈状态未知(协议服务器记录)
+type=4设备离线(协议服务器记录)
+</pre></div>
+</div>
+</div>
+<div class="section" id="ebc-last-login">
+<h3>ebc_last_login(最近登录集合)<a class="headerlink" href="#ebc-last-login" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="33%" />
+<col width="49%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>user_id</td>
+<td>字符串</td>
+<td>登录帐号</td>
+</tr>
+<tr class="row-even"><td>longitude</td>
+<td>64位浮点数</td>
+<td>经度</td>
+</tr>
+<tr class="row-odd"><td>latitude</td>
+<td>64位浮点数</td>
+<td>纬度</td>
+</tr>
+<tr class="row-even"><td>address</td>
+<td>字符串</td>
+<td>详细地址</td>
+</tr>
+<tr class="row-odd"><td>province</td>
+<td>字符串</td>
+<td>省份</td>
+</tr>
+<tr class="row-even"><td>city</td>
+<td>字符串</td>
+<td>城市</td>
+</tr>
+<tr class="row-odd"><td>county</td>
+<td>字符串</td>
+<td>区县</td>
+</tr>
+<tr class="row-even"><td>ip</td>
+<td>字符串</td>
+<td>ip地址</td>
+</tr>
+<tr class="row-odd"><td>logout_date</td>
+<td>日期(UTC时间)</td>
+<td>登出时间</td>
+</tr>
+<tr class="row-even"><td>create_date</td>
+<td>日期(UTC时间)</td>
+<td>创建时间（登录时间）</td>
+</tr>
+<tr class="row-odd"><td>unusual</td>
+<td>32位整型</td>
+<td>是否为异常地点（1：是，0：不是）</td>
+</tr>
+</tbody>
+</table>
+<p>示例数据：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s2">&quot;55faae5d9a3a3c3b631e64ff&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;logout_date&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;user_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;city&quot;</span> <span class="p">:</span> <span class="s2">&quot;杭州市&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;address&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;create_date&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2015-09-17T12:13:17.971Z&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;latitude&quot;</span> <span class="p">:</span> <span class="s2">&quot;30.25924446&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ip&quot;</span> <span class="p">:</span> <span class="s2">&quot;101.68.70.14&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;county&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;province&quot;</span> <span class="p">:</span> <span class="s2">&quot;浙江省&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;longitude&quot;</span> <span class="p">:</span> <span class="s2">&quot;120.21937542&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ebc-message">
+<h3>ebc_message(云后台消息集合)<a class="headerlink" href="#ebc-message" title="Permalink to this headline">¶</a></h3>
+<p>此集合保存云后台的站内通知、邮件通知、短信通知的消息</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="28%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>type</td>
+<td>32位整型</td>
+<td>消息类型（含义见补充说明）</td>
+</tr>
+<tr class="row-even"><td>from</td>
+<td>字符串</td>
+<td>消息来源</td>
+</tr>
+<tr class="row-odd"><td>to</td>
+<td>字符串</td>
+<td>消息接收者（用户帐号）</td>
+</tr>
+<tr class="row-even"><td>priority</td>
+<td>32位整型</td>
+<td>消息优先级</td>
+</tr>
+<tr class="row-odd"><td>notice_type</td>
+<td>32位整型</td>
+<td>通知方式（含义见补充说明）</td>
+</tr>
+<tr class="row-even"><td>title</td>
+<td>字符串</td>
+<td>消息标题</td>
+</tr>
+<tr class="row-odd"><td>content</td>
+<td>字符串</td>
+<td>消息内容</td>
+</tr>
+<tr class="row-even"><td>is_read</td>
+<td>boolean</td>
+<td>是否已阅读（true：已读，false：未读）</td>
+</tr>
+<tr class="row-odd"><td>read_date</td>
+<td>日期(UTC时间)</td>
+<td>阅读时间</td>
+</tr>
+<tr class="row-even"><td>create_date</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明：</p>
+<ol class="arabic simple">
+<li>消息类型含义：1代表提示消息（例如系统消息），2代表警告消息（例如设备预警消息），3代表错误消息</li>
+<li>通知方式含义：1代表站内信，2代表邮件通知，3代表短信通知</li>
+</ol>
+<p>示例数据：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s2">&quot;56556f8c6f43f64665a87ece&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;is_read&quot;</span> <span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;to&quot;</span> <span class="p">:</span> <span class="s2">&quot;zhangsan&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span> <span class="p">:</span> <span class="s2">&quot;安全中心&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;notice_type&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;read_date&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2015-11-25T08:21:32.740Z&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;create_date&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2015-11-25T08:21:32.740Z&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;priority&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;from&quot;</span> <span class="p">:</span> <span class="s2">&quot;系统消息&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;content&quot;</span> <span class="p">:</span> <span class="s2">&quot;您的帐号在2015-11-25 14：35 在杭州市登录，如非本人操作请尽快修改密码&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ebc-login-address">
+<h3>ebc_login_address(用户常用登录地点集合)<a class="headerlink" href="#ebc-login-address" title="Permalink to this headline">¶</a></h3>
+<p>此集合保存用户的一些常用登录地点，用于异常登录预警参考。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="32%" />
+<col width="45%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>user_id</td>
+<td>字符串</td>
+<td>登录帐号（用户帐号）</td>
+</tr>
+<tr class="row-even"><td>province</td>
+<td>字符串</td>
+<td>省份</td>
+</tr>
+<tr class="row-odd"><td>city</td>
+<td>字符串</td>
+<td>城市</td>
+</tr>
+<tr class="row-even"><td>type</td>
+<td>32位整型</td>
+<td>添加类型（含义见补充说明）</td>
+</tr>
+<tr class="row-odd"><td>add_date</td>
+<td>日期(UTC时间)</td>
+<td>添加时间</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明：</p>
+<ol class="arabic simple">
+<li>添加类型含义：1自动判断，2代表手动添加，3以后慢慢补充</li>
+</ol>
+<p>示例数据：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s2">&quot;56590d00f44cfab40c7998ae&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;user_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;province&quot;</span> <span class="p">:</span> <span class="s2">&quot;浙江省&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;city&quot;</span> <span class="p">:</span> <span class="s2">&quot;杭州市&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;add_date&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2015-11-27T08:53:37.576Z&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ebc-operation-record">
+<h3>ebc_operation_record(关键操作记录)<a class="headerlink" href="#ebc-operation-record" title="Permalink to this headline">¶</a></h3>
+<p>此集合保存用户的一些关键操作，例如：密码修改，支付宝账户重置等等。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="32%" />
+<col width="46%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>operate_type</td>
+<td>32位整型</td>
+<td>操作类型（含义见补充说明）</td>
+</tr>
+<tr class="row-even"><td>operator_id</td>
+<td>字符串</td>
+<td>操作者帐号（用户帐号）</td>
+</tr>
+<tr class="row-odd"><td>operate_content</td>
+<td>字符串</td>
+<td>操作具体内容</td>
+</tr>
+<tr class="row-even"><td>operate_date</td>
+<td>日期(UTC时间)</td>
+<td>操作时间</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明：</p>
+<ol class="arabic simple">
+<li>操作类型含义：1代表修改密码，2代表重置支付宝账户，3以后慢慢补充</li>
+</ol>
+<p>示例数据：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s2">&quot;56590b7ff44cfab40c7998ad&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;operate_type&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;operator_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;operate_content&quot;</span> <span class="p">:</span> <span class="s2">&quot;修改密码&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;operate_date&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2015-11-27T07:53:37.576Z&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ebc-device-token-device-token">
+<h3>ebc_device_token(device_token集合)<a class="headerlink" href="#ebc-device-token-device-token" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="31%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>字符串</td>
+<td>用户集合中的_id</td>
+</tr>
+<tr class="row-odd"><td>token</td>
+<td>字符串</td>
+<td>ios设备的APNS服务器获取到的device token</td>
+</tr>
+<tr class="row-even"><td>create_date</td>
+<td>日期</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明：</p>
+<ol class="arabic simple">
+<li>此集合用于APNS推送时查找用户与ios设备device_token之间的对应关系</li>
+</ol>
+</div>
+<div class="section" id="ebc-fault-commit">
+<h3>ebc_fault_commit(故障报修集合)<a class="headerlink" href="#ebc-fault-commit" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="34%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>device_id</td>
+<td>字符串</td>
+<td>设备编号</td>
+</tr>
+<tr class="row-even"><td>factory_symbol</td>
+<td>字符串</td>
+<td>厂商唯一标识</td>
+</tr>
+<tr class="row-odd"><td>product_id</td>
+<td>字符串</td>
+<td>产品编号</td>
+</tr>
+<tr class="row-even"><td>product_type</td>
+<td>字符串</td>
+<td>产品类型</td>
+</tr>
+<tr class="row-odd"><td>product_model</td>
+<td>字符串</td>
+<td>产品型号</td>
+</tr>
+<tr class="row-even"><td>fault_desc</td>
+<td>字符串</td>
+<td>故障描述</td>
+</tr>
+<tr class="row-odd"><td>fault_code</td>
+<td>字符串</td>
+<td>故障码</td>
+</tr>
+<tr class="row-even"><td>buy_date</td>
+<td>字符串</td>
+<td>购买日期</td>
+</tr>
+<tr class="row-odd"><td>order_time</td>
+<td>字符串</td>
+<td>预约时间</td>
+</tr>
+<tr class="row-even"><td>name</td>
+<td>字符串</td>
+<td>联系人姓名</td>
+</tr>
+<tr class="row-odd"><td>contact</td>
+<td>字符串</td>
+<td>联系方式</td>
+</tr>
+<tr class="row-even"><td>address</td>
+<td>字符串</td>
+<td>联系地址</td>
+</tr>
+<tr class="row-odd"><td>_created</td>
+<td>日期</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+<p>示例数据:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s2">&quot;553f44976f43f6413efcc869&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;device_id&quot;</span><span class="p">:</span> <span class="s2">&quot;100088885&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;factory_symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;ddb4c038-579a-11e5-9e88-00a0d1eb6068&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;product_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abc123&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;product_type&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;product_model&quot;</span><span class="p">:</span> <span class="s2">&quot;x1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;fault_desc&quot;</span><span class="p">:</span> <span class="s2">&quot;电源损坏&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;fault_code&quot;</span><span class="p">:</span> <span class="s2">&quot;000&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;buy_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2013-01-02&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;order_time&quot;</span><span class="p">:</span> <span class="s2">&quot;2010-01-01 00:01:02&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;张三&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;contact&quot;</span><span class="p">:</span> <span class="s2">&quot;15553483300&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;浙江省杭州市西湖区文二路212号高新大厦&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;_created&quot;</span><span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2015-04-28T08:28:07.000Z&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ebc-device-bill">
+<h3>ebc_device_bill(设备账单集合)<a class="headerlink" href="#ebc-device-bill" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="37%" />
+<col width="45%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>device_id</td>
+<td>字符串</td>
+<td>设备编号</td>
+</tr>
+<tr class="row-even"><td>bill_time</td>
+<td>字符串</td>
+<td>账单时间(year-month)</td>
+</tr>
+<tr class="row-odd"><td>bill</td>
+<td>64位浮点数</td>
+<td>账单金额</td>
+</tr>
+<tr class="row-even"><td>create_date</td>
+<td>日期</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明：</p>
+<ol class="arabic simple">
+<li>此集合记录每台设备上月账单，bill_time字段为账单的时间，只记录到月份，用于区分每年不同月份的账单</li>
+</ol>
+<p>示例数据:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s2">&quot;553f44976f43f6413efcc869&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;device_id&quot;</span><span class="p">:</span> <span class="s2">&quot;100088885&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bill_time&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-03&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bill&quot;</span><span class="p">:</span> <span class="mf">368.56</span><span class="p">,</span>
+    <span class="s2">&quot;create_date&quot;</span><span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2015-04-01T00:02:07.000Z&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ebc-clean">
+<h3>ebc_clean(清洁记录集合)<a class="headerlink" href="#ebc-clean" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="33%" />
+<col width="45%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>device_id</td>
+<td>字符串</td>
+<td>设备编号</td>
+</tr>
+<tr class="row-even"><td>device_alias</td>
+<td>字符串</td>
+<td>设备别名（显示给用户看的）</td>
+</tr>
+<tr class="row-odd"><td>factory_uid</td>
+<td>字符串</td>
+<td>厂商标识</td>
+</tr>
+<tr class="row-even"><td>agency_uid</td>
+<td>字符串</td>
+<td>代理商标识</td>
+</tr>
+<tr class="row-odd"><td>clean_from</td>
+<td>32位整型</td>
+<td>操作来源（详见补充说明）</td>
+</tr>
+<tr class="row-even"><td>operator</td>
+<td>字符串</td>
+<td>操作人员（详见补充说明）</td>
+</tr>
+<tr class="row-odd"><td>status_server</td>
+<td>内嵌文档</td>
+<td>服务器上的设备状态</td>
+</tr>
+<tr class="row-even"><td>create_date</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明：</p>
+<ol class="arabic simple">
+<li>操作来源，1表示后台远程命令，2表示机器按钮触发</li>
+<li>操作人员的值，如果是后台操作的，则保存帐号;如果是按钮触发则保存ip</li>
+</ol>
+<p>示例数据：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s2">&quot;567bd4626f43f646f61215dd&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;xyjadmin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;device_id&quot;</span><span class="p">:</span> <span class="s2">&quot;C893464C67B2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;clean_from&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;factory_uid&quot;</span><span class="p">:</span> <span class="s2">&quot;cd396786-579a-11e5-9e88-00a0d1eb6068&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;device_alias&quot;</span><span class="p">:</span> <span class="s2">&quot;XYJ0000001&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;create_date&quot;</span><span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2015-12-24T11:17:54.039Z&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;status_server&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;last_cmd&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="mi">2</span><span class="p">,</span>
+            <span class="mi">4</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;remain&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s2">&quot;wash_status&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">&quot;ip&quot;</span><span class="p">:</span> <span class="s2">&quot;101.68.70.14&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="mi">2</span><span class="p">,</span>
+            <span class="mi">4</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;agency_uid&quot;</span><span class="p">:</span> <span class="s2">&quot;e4d63b8a-57b3-11e5-9e88-00a0d1eb6068&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ebc-healthy-status">
+<h3>ebc_healthy_status(健康状态记录集合)<a class="headerlink" href="#ebc-healthy-status" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="33%" />
+<col width="45%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>device_id</td>
+<td>字符串</td>
+<td>设备编号（mac地址）</td>
+</tr>
+<tr class="row-even"><td>healthy_status</td>
+<td>32位整型</td>
+<td>设备健康状态（详见补充说明）</td>
+</tr>
+<tr class="row-odd"><td>use_status</td>
+<td>32位整型</td>
+<td>设备使用状态（详见补充说明）</td>
+</tr>
+<tr class="row-even"><td>create_date</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+<tr class="row-odd"><td>update_date</td>
+<td>日期(UTC时间)</td>
+<td>更新时间</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明：</p>
+<ol class="arabic simple">
+<li>健康状态说明0：健康，3：工作中，4：洗涤结束，5：自检中，6： 进水超时，7：排水超时，8：脱水时撞桶，9：脱水开盖，10：水位传感器异常，11：溢水报警,12：电机故障</li>
+<li>使用状态说明0：良好（使用次数少于100次），1：一般（使用次数100-150次），2：待清洗（使用次数大于150次）</li>
+<li>前段取数据时根据device_id来取，先取healthy_status如果不为0和4则直接显示相应的故障信息或者工作中，若为0或4则取use_status显示相应的使用状态</li>
+</ol>
+<p>示例数据：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s2">&quot;56b1662e16ec9c4afb1da5eb&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;device_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;C893464E6BE6&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;healthy_status&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;use_status&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;create_date&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2016-02-03T02:30:06.969Z&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;update_date&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2016-02-03T07:05:44.659Z&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="status">
+<h3>status(状态记录集合)<a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>此集合主要用于记录油烟机、集成灶的设备运行状态，应用点击次数，设备异常上报的数据</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="35%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>id</td>
+<td>字符串</td>
+<td>设备编号</td>
+</tr>
+<tr class="row-even"><td>factory_uid</td>
+<td>字符串</td>
+<td>厂商标识</td>
+</tr>
+<tr class="row-odd"><td>symbol</td>
+<td>字符串</td>
+<td>标记（详见补充说明）</td>
+</tr>
+<tr class="row-even"><td>category</td>
+<td>字符串</td>
+<td>分类（详见补充说明）</td>
+</tr>
+<tr class="row-odd"><td>type</td>
+<td>字符串</td>
+<td>类型（详见补充说明）</td>
+</tr>
+<tr class="row-even"><td>ip</td>
+<td>字符串</td>
+<td>客户端ip地址</td>
+</tr>
+<tr class="row-odd"><td>_etag</td>
+<td>字符串</td>
+<td>更新操作时用到的标识</td>
+</tr>
+<tr class="row-even"><td>_updated</td>
+<td>日期(UTC时间)</td>
+<td>更新时间</td>
+</tr>
+<tr class="row-odd"><td>_created</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明：</p>
+<ol class="arabic simple">
+<li>symbol表示标记（如果为运行状态，其值为厂商名称;如果是应用状态，其值为应用的名称）</li>
+<li>category表示分类(运行状态为1,应用状态为2,设备统计状态为3)</li>
+<li>type表示类型(如果为运行状态,其值对应&#8221;附录1运行状态表&#8221;中的值;如果是应用状态,其值对应&#8221;附录2应用状态表&#8221;的值;如果是设备统计状态见&#8221;附录3设备统计状态表&#8221;)</li>
+</ol>
+<p>附录1：运行状态表</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">值</th>
+<th class="head">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>打开</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>关闭</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>大风</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>小风</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td>无风</td>
+</tr>
+<tr class="row-odd"><td>6</td>
+<td>开灯</td>
+</tr>
+<tr class="row-even"><td>7</td>
+<td>关灯</td>
+</tr>
+<tr class="row-odd"><td>8</td>
+<td>电压异常</td>
+</tr>
+</tbody>
+</table>
+<p>附录2：应用状态表</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">值</th>
+<th class="head">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>打开软件</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>关闭软件</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>应用异常</td>
+</tr>
+</tbody>
+</table>
+<p>附录3：设备统计状态表</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">值</th>
+<th class="head">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>激活(首次联网激活时提交的值)</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>活跃(每天第一次打开软件时提交的值)</td>
+</tr>
+</tbody>
+</table>
+<p>示例数据：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s2">&quot;5553035ae138234139e9e277&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;id&quot;</span> <span class="p">:</span> <span class="s2">&quot;91833535&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;factory_uid&quot;</span><span class="p">:</span><span class="s2">&quot;ecc8b0ac-579a-11e5-9e88-00a0d1eb6068&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;symbol&quot;</span> <span class="p">:</span> <span class="s2">&quot;56iq音乐&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;category&quot;</span> <span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ip&quot;</span> <span class="p">:</span> <span class="s2">&quot;101.68.70.14&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;_etag&quot;</span> <span class="p">:</span> <span class="s2">&quot;740ba9283d7fa13789e4bb2c3872a58c85e40ba6&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;_updated&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2015-05-13T07:55:06.000Z&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;_created&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2015-05-13T07:55:06.000Z&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ebc-ad-history">
+<h3>ebc_ad_history(待机广告推送记录集合)<a class="headerlink" href="#ebc-ad-history" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>此集合用于记录推送成功的待机广告,包括广告id，推送用户id,推送方式,推送目标等.</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="22%" />
+<col width="51%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>user_id</td>
+<td>string</td>
+<td>推送者的用户id</td>
+</tr>
+<tr class="row-odd"><td>factory_uid</td>
+<td>string</td>
+<td>推送用户所属厂商uid</td>
+</tr>
+<tr class="row-even"><td>agent_uid</td>
+<td>string</td>
+<td>代理商uid</td>
+</tr>
+<tr class="row-odd"><td>ad_id</td>
+<td>string</td>
+<td>广告id</td>
+</tr>
+<tr class="row-even"><td>ad_type</td>
+<td>string</td>
+<td>广告类型</td>
+</tr>
+<tr class="row-odd"><td>ad_md5</td>
+<td>string</td>
+<td>广告压缩包的md5</td>
+</tr>
+<tr class="row-even"><td>ad_url</td>
+<td>string</td>
+<td>广告压缩包的url</td>
+</tr>
+<tr class="row-odd"><td>ad_conv_url</td>
+<td>string</td>
+<td>素材处理后的url(转码缩放等处理后)</td>
+</tr>
+<tr class="row-even"><td>ad_img</td>
+<td>string</td>
+<td>素材缩略图</td>
+</tr>
+<tr class="row-odd"><td>content_url</td>
+<td>string</td>
+<td>广告图片视频的url</td>
+</tr>
+<tr class="row-even"><td>content_id</td>
+<td>string</td>
+<td>广告图片视频的id</td>
+</tr>
+<tr class="row-odd"><td>push_type</td>
+<td>string</td>
+<td>推送类型</td>
+</tr>
+<tr class="row-even"><td>area</td>
+<td>string</td>
+<td>区域</td>
+</tr>
+<tr class="row-odd"><td>area_value</td>
+<td>string</td>
+<td>地区值</td>
+</tr>
+<tr class="row-even"><td>to_user</td>
+<td>string</td>
+<td>推送目标用户</td>
+</tr>
+<tr class="row-odd"><td>dt_id</td>
+<td>string</td>
+<td>设备类型</td>
+</tr>
+<tr class="row-even"><td>push_date</td>
+<td>Date</td>
+<td>推送时间</td>
+</tr>
+<tr class="row-odd"><td>comment</td>
+<td>string</td>
+<td>备注</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ebc-ad-content">
+<h3>ebc_ad_content (待机广告素材管理集合)<a class="headerlink" href="#ebc-ad-content" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>此集合记录用户上传的素材信息.</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="20%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>user_id</td>
+<td>string</td>
+<td>推送者的用户id</td>
+</tr>
+<tr class="row-odd"><td>factory_uid</td>
+<td>string</td>
+<td>所属厂商uid</td>
+</tr>
+<tr class="row-even"><td>agent_uid</td>
+<td>string</td>
+<td>代理的uid</td>
+</tr>
+<tr class="row-odd"><td>ad_id</td>
+<td>string</td>
+<td>广告素材id</td>
+</tr>
+<tr class="row-even"><td>ad_type</td>
+<td>string</td>
+<td>素材类型</td>
+</tr>
+<tr class="row-odd"><td>ad_url</td>
+<td>string</td>
+<td>素材初始文件url</td>
+</tr>
+<tr class="row-even"><td>ad_conv_url</td>
+<td>string</td>
+<td>素材处理后的url(转码缩放等处理后)</td>
+</tr>
+<tr class="row-odd"><td>ad_img</td>
+<td>string</td>
+<td>素材缩略图</td>
+</tr>
+<tr class="row-even"><td>ad_info</td>
+<td>string</td>
+<td>素材文件信息</td>
+</tr>
+<tr class="row-odd"><td>upload_date</td>
+<td>Date</td>
+<td>素材上传时间</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ebc-wash-service">
+<h3>ebc_wash_service (清洗服务集合)<a class="headerlink" href="#ebc-wash-service" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="26%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>device_id</td>
+<td>字符串</td>
+<td>设备编号</td>
+</tr>
+<tr class="row-even"><td>factory_uid</td>
+<td>字符串</td>
+<td>厂商标识</td>
+</tr>
+<tr class="row-odd"><td>agent_uid</td>
+<td>字符串</td>
+<td>代理商标识</td>
+</tr>
+<tr class="row-even"><td>wash_type</td>
+<td>32位整型</td>
+<td>清洗类型(详见补充说明)</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>字符串</td>
+<td>联系人姓名</td>
+</tr>
+<tr class="row-even"><td>contact</td>
+<td>字符串</td>
+<td>联系方式</td>
+</tr>
+<tr class="row-odd"><td>province</td>
+<td>字符串</td>
+<td>省份</td>
+</tr>
+<tr class="row-even"><td>city</td>
+<td>字符串</td>
+<td>城市</td>
+</tr>
+<tr class="row-odd"><td>district</td>
+<td>字符串</td>
+<td>区县</td>
+</tr>
+<tr class="row-even"><td>address</td>
+<td>字符串</td>
+<td>详细地址</td>
+</tr>
+<tr class="row-odd"><td>status</td>
+<td>32位整型</td>
+<td>处理状态(详见补充说明)</td>
+</tr>
+<tr class="row-even"><td>remarks</td>
+<td>字符串</td>
+<td>备注</td>
+</tr>
+<tr class="row-odd"><td>update_date</td>
+<td>日期(UTC时间)</td>
+<td>状态更新时间</td>
+</tr>
+<tr class="row-even"><td>create_date</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+<p>补充说明：</p>
+<ol class="arabic simple">
+<li>wash_type为清洗类型，值为1时表示简单清洗，值为2时表示深层清洗</li>
+<li>status为处理状态，值为0：未处理，1：已提交，2：已派单，3：已完成。通过接口刚添加时默认为0未处理</li>
+</ol>
+<p>示例数据：</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ObjectId</span><span class="p">(</span><span class="s2">&quot;56d686776f43f64dc7b93d47&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;address&quot;</span> <span class="p">:</span> <span class="s2">&quot;文二路212号高新大厦&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;agent_uid&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;city&quot;</span> <span class="p">:</span> <span class="s2">&quot;杭州市&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;contact&quot;</span> <span class="p">:</span> <span class="s2">&quot;15553483802&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;create_date&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2016-03-02T06:21:43.852Z&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;device_id&quot;</span> <span class="p">:</span> <span class="s2">&quot;100000378&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;district&quot;</span> <span class="p">:</span> <span class="s2">&quot;西湖区&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;factory_uid&quot;</span> <span class="p">:</span> <span class="s2">&quot;4855a49a-adfc-11e5-9755-00a0d1edbe70&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;张三&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;province&quot;</span> <span class="p">:</span> <span class="s2">&quot;浙江省&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;remarks&quot;</span> <span class="p">:</span> <span class="s2">&quot;这个可以测试下&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;status&quot;</span> <span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;update_date&quot;</span> <span class="p">:</span> <span class="n">ISODate</span><span class="p">(</span><span class="s2">&quot;2016-03-02T06:21:43.852Z&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;wash_type&quot;</span> <span class="p">:</span> <span class="mf">1.0000000000000000</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ebc-wechat-oa">
+<h3>ebc_wechat_oa (微信公众号集合)<a class="headerlink" href="#ebc-wechat-oa" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="27%" />
+<col width="45%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">名称</th>
+<th class="head">数据类型</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_id</td>
+<td>ObjectId(唯一)</td>
+<td>编号</td>
+</tr>
+<tr class="row-odd"><td>appid</td>
+<td>字符串</td>
+<td>公众号AppID</td>
+</tr>
+<tr class="row-even"><td>secret</td>
+<td>字符串</td>
+<td>公众号AppSecret</td>
+</tr>
+<tr class="row-odd"><td>wxtoken</td>
+<td>字符串</td>
+<td>微信后台绑定的token</td>
+</tr>
+<tr class="row-even"><td>encoding_aes_key</td>
+<td>字符串</td>
+<td>消息加密密钥</td>
+</tr>
+<tr class="row-odd"><td>pid</td>
+<td>字符串</td>
+<td>唯一标识</td>
+</tr>
+<tr class="row-even"><td>factory_uid</td>
+<td>字符串</td>
+<td>厂商uid</td>
+</tr>
+<tr class="row-odd"><td>create_date</td>
+<td>日期(UTC时间)</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">pid为32个字符组成的字符串（由厂商uid去掉减号后组成的）</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">mongodb</a><ul>
+<li><a class="reference internal" href="#id1">基本信息</a></li>
+<li><a class="reference internal" href="#id2">集合结构</a><ul>
+<li><a class="reference internal" href="#c-record">c_record(统计服务记录集合)</a></li>
+<li><a class="reference internal" href="#c-total">c_total(统计服务统计集合)</a></li>
+<li><a class="reference internal" href="#ebc-db-backup">ebc_db_backup(数据库备份集合)</a></li>
+<li><a class="reference internal" href="#ebc-plugin">ebc_plugin(页面插件显示集合)</a></li>
+<li><a class="reference internal" href="#ebc-plugin-history">ebc_plugin_history(插件历史集合)</a></li>
+<li><a class="reference internal" href="#ebc-group">ebc_group(好友分组集合)</a></li>
+<li><a class="reference internal" href="#ebc-friends">ebc_friends(好友集合)</a></li>
+<li><a class="reference internal" href="#ebc-wash">ebc_wash(洗涤记录集合)</a></li>
+<li><a class="reference internal" href="#ebc-wash-history">ebc_wash_history(洗涤记录历史集合)</a></li>
+<li><a class="reference internal" href="#ebc-share">ebc_share(分享记录集合)</a></li>
+<li><a class="reference internal" href="#ebc-user-device">ebc_user_device(用户设备集合)</a></li>
+<li><a class="reference internal" href="#ebc-status">ebc_status(设备状态集合)</a></li>
+<li><a class="reference internal" href="#ebc-user-position">ebc_user_position(用户位置集合)</a></li>
+<li><a class="reference internal" href="#ebc-device-position">ebc_device_position(设备位置集合)</a></li>
+<li><a class="reference internal" href="#ebc-status-fault">ebc_status_fault(故障状态记录集合)</a></li>
+<li><a class="reference internal" href="#ebc-status-record">ebc_status_record(状态记录集合)</a></li>
+<li><a class="reference internal" href="#ebc-error-pay">ebc_error_pay(异常订单集合)</a></li>
+<li><a class="reference internal" href="#ebc-error-task">ebc_error_task(异常任务集合)</a></li>
+<li><a class="reference internal" href="#ebc-last-login">ebc_last_login(最近登录集合)</a></li>
+<li><a class="reference internal" href="#ebc-message">ebc_message(云后台消息集合)</a></li>
+<li><a class="reference internal" href="#ebc-login-address">ebc_login_address(用户常用登录地点集合)</a></li>
+<li><a class="reference internal" href="#ebc-operation-record">ebc_operation_record(关键操作记录)</a></li>
+<li><a class="reference internal" href="#ebc-device-token-device-token">ebc_device_token(device_token集合)</a></li>
+<li><a class="reference internal" href="#ebc-fault-commit">ebc_fault_commit(故障报修集合)</a></li>
+<li><a class="reference internal" href="#ebc-device-bill">ebc_device_bill(设备账单集合)</a></li>
+<li><a class="reference internal" href="#ebc-clean">ebc_clean(清洁记录集合)</a></li>
+<li><a class="reference internal" href="#ebc-healthy-status">ebc_healthy_status(健康状态记录集合)</a></li>
+<li><a class="reference internal" href="#status">status(状态记录集合)</a></li>
+<li><a class="reference internal" href="#ebc-ad-history">ebc_ad_history(待机广告推送记录集合)</a></li>
+<li><a class="reference internal" href="#ebc-ad-content">ebc_ad_content (待机广告素材管理集合)</a></li>
+<li><a class="reference internal" href="#ebc-wash-service">ebc_wash_service (清洗服务集合)</a></li>
+<li><a class="reference internal" href="#ebc-wechat-oa">ebc_wechat_oa (微信公众号集合)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mysql.html"
+                        title="previous chapter">mysql</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../intro.html"
+                        title="next chapter">项目介绍</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../intro.html" title="项目介绍"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="mysql.html" title="mysql"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, 53iq.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>环境配置 &mdash; smartsys 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="top" title="smartsys 1.0 documentation" href="../index.html" />
+    <link rel="up" title="使用教程" href="../tutorial.html" />
+    <link rel="next" title="登录会话与权限" href="auth.html" />
+    <link rel="prev" title="使用教程" href="../tutorial.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+
+  </head>
+  <body role="document">
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../index.html">smartsys 1.0 documentation</a> &raquo;</li>
+          <li><a href="../tutorial.html" accesskey="U">使用教程</a> &raquo;</li> 
+      </ul>
+    </div>
+    
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>环境配置<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>安装项目<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>创建虚拟环境<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span># 安装python版本
+pyenv install 3.4.1
+pyenv global 3.4.1
+# 创建虚拟环境
+pyenv virtualenv 3.4.1 smartsysenv
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>安装依赖<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># &quot;requirements.txt&quot;这个文件在源码的根目录下,先删掉“AxmlParserPY==0.1”、“httpheader==1.1”、“python-memcached==1.44”这3行</span>
+pip install -r requirements.txt
+
+<span class="c1"># &quot;python-memcached&quot;、&quot;AxmlParserPY&quot;、&quot;httpheader&quot;这3个依赖包从以下地址下载：</span>
+http://192.168.0.62/file/python3/python-memcached-1.44-mod.zip
+http://192.168.0.62/file/python3/AxmlParserPY-0.01.zip
+http://192.168.0.62/file/python3/httpheader-1.1-py3bug%e4%bf%ae%e5%a4%8d%e7%89%88.zip
+
+
+<span class="c1"># 解决&quot;Python: The _imagingft C module is not installed&quot;</span>
+<span class="c1"># 有些系统，比如ubuntu会报此类错误（centos貌似不会）</span>
+<span class="c1"># 安装jpeg库</span>
+wget http://www.ijg.org/files/jpegsrc.v7.tar.gz
+tar -zxvf jpegsrc.v7.tar.gz
+<span class="nb">cd</span> jpeg-7
+<span class="nv">CC</span><span class="o">=</span><span class="s2">&quot;gcc -arch x86_64&quot;</span>
+./configure --enable-shared --enable-static
+make <span class="o">&amp;&amp;</span> make install
+
+<span class="c1"># 安装相关依赖</span>
+sudo apt-get install libfreetype6-dev
+sudo apt-get install libjpeg-dev
+<span class="c1"># 卸载后重新安装</span>
+pip uninstall Pillow
+pip install <span class="nv">Pillow</span><span class="o">==</span>2.8.1
+
+<span class="c1"># 将字体文件复制到系统系统目录中</span>
+wget http://192.168.0.62/file/python3/msyh.ttf
+sudo cp msyh.ttf /usr/share/fonts/
+<span class="c1"># 然后重新启动一下项目即可</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>运行<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>在pycharm中配置好Interpreter,菜单栏&#8211;&gt; File &#8211;&gt; Settings... &#8211;&gt; Project:smartsys &#8211;&gt; 选择创建好的虚拟环境</li>
+<li>运行，pycharm的右上角有运行按钮，点击后即可运行（或者直接在根目录下执行命令运行：python manage.py runserver 127.0.0.1:8000）</li>
+<li>在浏览器中输入：<a class="reference external" href="http://127.0.0.1:8000">http://127.0.0.1:8000</a> 即可打开设备管理系统站点</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">环境配置</a><ul>
+<li><a class="reference internal" href="#id2">安装项目</a><ul>
+<li><a class="reference internal" href="#id3">创建虚拟环境</a></li>
+<li><a class="reference internal" href="#id4">安装依赖</a></li>
+<li><a class="reference internal" href="#id5">运行</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../tutorial.html"
+                        title="previous chapter">使用教程</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="auth.html"
+                        title="next chapter">登录会话与权限</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="auth.html" title="登录会话与权限"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../tutorial.html" title="使用教程"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, 53iq.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>登录会话与权限 &mdash; smartsys 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="top" title="smartsys 1.0 documentation" href="../index.html" />
+    <link rel="up" title="使用教程" href="../tutorial.html" />
+    <link rel="next" title="详情页面" href="detail.html" />
+    <link rel="prev" title="环境配置" href="bootstrap.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+
+  </head>
+  <body role="document">
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../index.html">smartsys 1.0 documentation</a> &raquo;</li>
+          <li><a href="../tutorial.html" accesskey="U">使用教程</a> &raquo;</li> 
+      </ul>
+    </div>
+    
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>登录会话与权限<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>登录会话<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>登录模块封装在一个类中，方便统一管理和维护，同时减少重复代码，在其它视图中直接调用即可</p>
+<div class="section" id="id3">
+<h3>管理员用户登录时可取到的数据<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># 登录</span>
+<span class="n">OnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+
+<span class="c1"># 登出</span>
+<span class="n">OnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">logout</span><span class="p">()</span>
+
+<span class="c1"># 是否已经登录</span>
+<span class="n">OnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">is_login</span><span class="p">()</span>
+
+<span class="c1"># 获取当前登录用户的用户名</span>
+<span class="n">user_name</span><span class="o">=</span><span class="n">OnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">get_user_name</span><span class="p">()</span>
+
+<span class="c1"># 获取当前登录用户的用户类型</span>
+<span class="n">user_type</span><span class="o">=</span><span class="n">OnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">get_user_type</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>厂商帐号登录时可取到的数据<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># 登录</span>
+<span class="n">FactoryOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+
+<span class="c1"># 登出</span>
+<span class="n">FactoryOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">logout</span><span class="p">()</span>
+
+<span class="c1"># 是否已经登录</span>
+<span class="n">FactoryOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">is_login</span><span class="p">()</span>
+
+<span class="c1"># 获取当前登录用户的用户名</span>
+<span class="n">user_name</span><span class="o">=</span><span class="n">FactoryOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">get_user_name</span><span class="p">()</span>
+
+<span class="c1"># 获取当前登录用户的用户类型</span>
+<span class="n">user_type</span><span class="o">=</span><span class="n">FactoryOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">get_user_type</span><span class="p">()</span>
+
+<span class="c1"># 获取当前用户所属厂商编号</span>
+<span class="n">factory_id</span><span class="o">=</span><span class="n">FactoryOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">get_factory_id</span><span class="p">()</span>
+
+<span class="c1"># 获取当前用户所属厂商uid</span>
+<span class="n">factory_uid</span><span class="o">=</span><span class="n">FactoryOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">get_factory_uid</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>代理商帐号登录时可取到的数据<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># 登录</span>
+<span class="n">AgencyOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+
+<span class="c1"># 登出</span>
+<span class="n">AgencyOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">logout</span><span class="p">()</span>
+
+<span class="c1"># 是否已经登录</span>
+<span class="n">AgencyOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">is_login</span><span class="p">()</span>
+
+<span class="c1"># 获取当前登录用户的用户名</span>
+<span class="n">user_name</span><span class="o">=</span><span class="n">AgencyOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">get_user_name</span><span class="p">()</span>
+
+<span class="c1"># 获取当前登录用户的用户类型</span>
+<span class="n">user_type</span><span class="o">=</span><span class="n">AgencyOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">get_user_type</span><span class="p">()</span>
+
+<span class="c1"># 获取当前用户所属厂商编号</span>
+<span class="n">factory_id</span><span class="o">=</span><span class="n">AgencyOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">get_factory_id</span><span class="p">()</span>
+
+<span class="c1"># 获取当前用户所属厂商uid</span>
+<span class="n">factory_uid</span><span class="o">=</span><span class="n">AgencyOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">get_factory_uid</span><span class="p">()</span>
+
+<span class="c1"># 获取当前用户所属代理商编号</span>
+<span class="n">agency_id</span><span class="o">=</span><span class="n">AgencyOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">get_agency_id</span><span class="p">()</span>
+
+<span class="c1"># 获取当前用户所属代理商uid</span>
+<span class="n">agency_uid</span><span class="o">=</span><span class="n">AgencyOnlineUser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">get_agency_uid</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">登录会话与权限</a><ul>
+<li><a class="reference internal" href="#id2">登录会话</a><ul>
+<li><a class="reference internal" href="#id3">管理员用户登录时可取到的数据</a></li>
+<li><a class="reference internal" href="#id4">厂商帐号登录时可取到的数据</a></li>
+<li><a class="reference internal" href="#id5">代理商帐号登录时可取到的数据</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bootstrap.html"
+                        title="previous chapter">环境配置</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="detail.html"
+                        title="next chapter">详情页面</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="detail.html" title="详情页面"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="bootstrap.html" title="环境配置"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, 53iq.
+    </div>
+  </body>
+</html>

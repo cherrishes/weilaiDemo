@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>项目介绍 &mdash; smartsys 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="top" title="smartsys 1.0 documentation" href="index.html" />
+    <link rel="next" title="使用教程" href="tutorial.html" />
+    <link rel="prev" title="mongodb" href="db/mongodb.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+
+  </head>
+  <body role="document">
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="index.html">smartsys 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>项目介绍<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>主要模块<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>网站（电脑版、手机版）</li>
+<li>管理后台</li>
+<li>设备管理系统</li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h2>目录结构<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span></span>smartsys
+├── app
+│   ├── device --设备管理系统
+│   │   ├── account --账户模块
+│   │   ├── device --设备模块
+│   │   ├── mall --商城模块
+│   │   ├── statistics --统计模块
+│   │   ├── templatetags
+│   │   └── user --用户模块
+│   ├── home --网站
+│   ├── manage --后台管理
+│
+├── cache
+├── common --公用部分代码
+├── conf --配置目录(存放配置信息)
+├── core --装饰器、中间件、插件管理器等核心代码
+├── demo --示例代码
+├── doc --文档目录
+│   ├── flowchart
+│   ├── mysql
+│   ├── smartsys
+│   │   ├── _build
+│   │   ├── db
+│   │   ├── _static
+│   │   └── _templates
+│   ├── ui
+│   └── xmind
+├── example
+├── extension --插件扩展
+├── log --日志记录
+├── model --数据模型
+│   └── device
+├── smartsys
+├── static --静态资源
+│   ├── admin
+│   │   ├── css
+│   │   ├── img
+│   │   └── js
+│   ├── arttemplate
+│   ├── bootstrap
+│   │   ├── AdminLTE
+│   │   ├── css
+│   │   ├── fonts
+│   │   ├── js
+│   │   └── switch
+│   ├── css
+│   │   ├── device
+│   │   ├── fonts
+│   │   ├── home
+│   │   ├── manage
+│   │   └── wiki
+│   ├── file
+│   ├── font-awesome-4.4.0
+│   │   ├── css
+│   │   ├── fonts
+│   │   ├── less
+│   │   └── scss
+│   ├── highcharts
+│   │   ├── adapters
+│   │   ├── modules
+│   │   └── themes
+│   ├── img
+│   │   ├── device
+│   │   ├── head
+│   │   ├── home
+│   │   ├── manage
+│   │   ├── wash
+│   │   └── wiki
+│   ├── js
+│   │   ├── device
+│   │   ├── home
+│   │   ├── manage
+│   │   └── wiki
+│   ├── mmGrid
+│   │   ├── img
+│   │   └── theme
+│   ├── orbited
+│   └── uikit-2.17.0
+│       ├── css
+│       ├── fonts
+│       └── js
+├── template --模板目录
+│   ├── admin
+│   │   ├── auth
+│   │   ├── edit_inline
+│   │   └── includes
+│   ├── device
+│   │   ├── account
+│   │   ├── device
+│   │   ├── mall
+│   │   ├── statistics
+│   │   └── user
+│   ├── home
+│   ├── manage
+│   └── wiki
+├── test --单元测试
+├── tmp  -- 临时文件（里面的内容随意删除）
+└── util --常用工具类封装
+    ├── compressor -- 静态资源压缩
+    ├── java
+    └── sms -- 短信通知
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">项目介绍</a><ul>
+<li><a class="reference internal" href="#id2">主要模块</a></li>
+<li><a class="reference internal" href="#id3">目录结构</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="db/mongodb.html"
+                        title="previous chapter">mongodb</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial.html"
+                        title="next chapter">使用教程</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tutorial.html" title="使用教程"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="db/mongodb.html" title="mongodb"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, 53iq.
+    </div>
+  </body>
+</html>
