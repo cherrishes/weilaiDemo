@@ -3,6 +3,7 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 import datetime
+import logging
 from conf.sessionconf import SESSION_USER_ID
 
 __author__ = 'rdy'
@@ -102,6 +103,7 @@ def deal_plan(request):
                 p.finish_date = datetime.datetime.utcnow()
                 p.save()
         except Exception as e:
+            logging.getLogger('').info('更新任务状态出错'+str(e))
             print(e)
         return HttpResponse('ok')
     elif flag == 'add':
@@ -113,5 +115,6 @@ def deal_plan(request):
             p.user_id = User.objects.get(user_id=user_id)
             p.save()
         except Exception as e:
+            logging.getLogger('').info('添加任务至数据库出错'+str(e))
             print(e)
     return HttpResponse('ok')
