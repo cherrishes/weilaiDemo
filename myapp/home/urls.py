@@ -10,6 +10,7 @@ home_patterns = patterns(
     'myapp.home.views',
     url(r'^$', "login", name='first'),
     url(r'^login$', "login", name='login'),
+    url(r'^signup', "signup", name='signup'),
     url(r'^home$', "home", name='home'),
     url(r'^fun$', "fun", name='fun'),
     url(r'^week_list$', "week_list", name='week_list'),

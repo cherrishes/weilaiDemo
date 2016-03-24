@@ -30,7 +30,7 @@ mysql
       `wlf_user_type` int(2) NOT NULL DEFAULT '0' COMMENT '用户类型（0：普通用户，1：管理员）',
       `wlf_user_account_type` int(2) NOT NULL DEFAULT '0' COMMENT '账号类型（0：内部注册账号，1：qq，2：微信，3：新浪微博）',
       `wlf_user_login_date` datetime DEFAULT NULL COMMENT '最近登录时间',
-      `wlf_user_is_online` 3nt(1) NOT NULL DEFAULT '0' COMMENT '是否在线（0：离线，1：在线）',
+      `wlf_user_is_online` int(1) NOT NULL DEFAULT '0' COMMENT '是否在线（0：离线，1：在线）',
       `wlf_user_remarks` varchar(64) DEFAULT NULL COMMENT '备注',
       `wlf_user_create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
       `wlf_user_phone` varchar(32) DEFAULT NULL COMMENT '联系电话',

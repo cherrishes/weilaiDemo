@@ -43,6 +43,21 @@ def login(request):
 
 
 @csrf_exempt
+def signup(request):
+    """
+    注册页面
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        user_name = request.POST.get('user-name', '')
+        user_email = request.POST.get('user-email', '')
+        user_password = request.POST.get('user-password', '')
+        print(user_name, user_email, user_password)
+    return render(request, 'home/signup.html', locals())
+
+
+@csrf_exempt
 def home(request):
     """
     首页
