@@ -17,6 +17,6 @@ home_patterns = patterns(
     url(r'^week_list$', "week_list", name='week_list'),
     url(r'^chat$', "chat", name='chat'),
     url(r'^deal_plan$', "deal_plan", name='deal_plan'),
-
+    url(r'^detail$', "detail", name='detail'),
 
 )

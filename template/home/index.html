@@ -186,7 +186,7 @@
 {% endblock %}
 {% block script %}
     <script>
-    var user_name = '{{ request.session.SESSION_USER_NAME }}'
+    var user_name = '{{ request.session.SESSION_USER_NAME }}';
     function current_date(){
         var myDate = new Date();
         var M = myDate.getMonth()+1; //月份

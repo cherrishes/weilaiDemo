@@ -176,3 +176,14 @@ def deal_plan(request):
             logging.getLogger('').info('添加任务至数据库出错'+str(e))
             print(e)
     return HttpResponse('ok')
+
+
+@csrf_exempt
+# @login_required
+def detail(request):
+    """
+    任务详情
+    :param request:
+    :return:
+    """
+    return render(request, 'home/detail.html', locals())
