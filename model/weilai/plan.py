@@ -13,6 +13,8 @@ class Plan(models.Model):
     """
     # 计划编号
     plan_id = models.AutoField(primary_key=True, db_column='wlf_plan_id')
+    # 用户计划编号
+    user_plan_id = models.IntegerField(max_length=11, default=0, db_column='wlf_user_plan_id')
     # 用户账号
     user_id = models.ForeignKey(User, db_column='wlf_user_id')
     # 计划内容

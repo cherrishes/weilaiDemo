@@ -67,7 +67,7 @@
 <div class="panel panel-left panel-reveal">
   <div class="content-block">
 {#    <p>这是一个侧栏</p>#}
-      <div class="panel-control"><img class="panel-img" src="{% static 'img/ty.jpg'  %}"><p class="panel-name">他们说我名字很长</p></div>
+      <div class="panel-control"><img class="panel-img" src="{{ request.session.SESSION_HEAD_PORTRAIT }}"><p class="panel-name">{{ request.session.SESSION_USER_NAME }}</p></div>
 
     <ul class="panel-menu">
         <li class="panel-href" id="panel-first" target="/home"><img src="{% static 'img/icon/calendar_today.ico' %}"><a>今天</a></li>
@@ -82,10 +82,10 @@
 </div>
 <div class="panel panel-right panel-cover">
   <div class="content-block">
-    <p>这是右侧栏，panel-cover模式</p>
+    <p>更多功能程序员哥哥正在开发中</p>
     <p></p>
     <!-- Click on link with "close-panel" class will close panel -->
-    <p><a href="#" class="close-panel">关闭</a></p>
+    <p><a href="/logout" class="close-panel">退出</a></p>
   </div>
 </div>
 </div>
@@ -146,6 +146,7 @@
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.js' charset='utf-8'></script>
 {#<script src="{% static 'js/toucher.js' %}"></script>#}
 <script>
+
     $(function(){
 
         $(".panel-href").bind('touchstart', function(){
@@ -177,6 +178,7 @@
                 $.alert('暂时还不能添加');
             }
         });
+
 
 {#         var bodyTouch = util.toucher($('.content-main')[0]);#}
 {#        // 右划事件#}

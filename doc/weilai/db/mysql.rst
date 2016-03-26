@@ -46,6 +46,7 @@ mysql
     DROP TABLE IF EXISTS `wlt_plan`;
     CREATE TABLE `wlt_plan`(
       `wlf_plan_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '计划编号',
+      'wlf_user_plan_id' int(11) NOT NULL DEFAULT '0' COMMENT '用户计划编号',
       `wlf_user_id` varchar(128) DEFAULT NULL COMMENT '用户账号',
       `wlf_plan_msg` varchar(2048) DEFAULT NULL COMMENT '计划内容',
       `wlf_plan_type` int(2) NOT NULL DEFAULT '0' COMMENT '计划类型(0：日常计划，1：重复计划，2：分享计划，3:分配计划)',

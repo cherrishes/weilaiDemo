@@ -139,7 +139,7 @@
                       {% elif i.plan_type == 3 %}
                         <div class="item-after"><img src="{% static 'img/folder_mail.png' %}"></div>
                       {% endif %}
-                    <div class="item-border"> <small class="item-number">#{{ i.plan_id }}</small><small class="item-name">{{ i.user_id.user_nickname }}</small><small class="item-time"><i class="icon icon-clock"></i>{{ i.create_date|wlutc2local }}</small></div>
+                    <div class="item-border"> <small class="item-number">#{{ i.user_plan_id }}</small><small class="item-name">{{ i.user_id.user_nickname }}</small><small class="item-time"><i class="icon icon-clock"></i>{{ i.create_date|wlutc2local }}</small></div>
                   </div>
 
                 </div>
@@ -171,7 +171,7 @@
                       {% elif i.plan_type == 3 %}
                         <div class="item-after"><img src="{% static 'img/folder_mail.png' %}"></div>
                       {% endif %}
-                    <div class="item-border"> <small class="item-number">#{{ i.plan_id }}</small><small class="item-name">{{ i.user_id.user_nickname }}</small><small class="item-time"><i class="icon icon-clock"></i>{{ i.create_date|wlutc2local }}</small></div>
+                    <div class="item-border"> <small class="item-number">#{{ i.user_plan_id }}</small><small class="item-name">{{ i.user_id.user_nickname }}</small><small class="item-time"><i class="icon icon-clock"></i>{{ i.create_date|wlutc2local }}</small></div>
                   </div>
 
                 </div>
@@ -186,6 +186,7 @@
 {% endblock %}
 {% block script %}
     <script>
+    var user_name = '{{ request.session.SESSION_USER_NAME }}'
     function current_date(){
         var myDate = new Date();
         var M = myDate.getMonth()+1; //月份
@@ -268,7 +269,7 @@
                         ' <div class="item-inner"> <div class="item-title-row">' +
                         '<div class="item-title">'+task_val+'</div>' +
                         '<div class="item-border"> <small class="item-number">#'+total_num+'</small>' +
-                        '<small class="item-name">他们说我名字太长</small><small class="item-time">' +
+                        '<small class="item-name">'+user_name+'</small><small class="item-time">' +
                         '<i class="icon icon-clock"></i>'+current_date()+'</small></div></div></div></li>';
 
                 $(html).prependTo($(".task-unfinish"));
@@ -278,7 +279,7 @@
                     url     : "/deal_plan",
                     type  : "POST",
                     dataType: "json",
-                    data    : {'flag': 'add', 'msg': task_val},
+                    data    : {'flag': 'add', 'msg': task_val, 'plan_num': total_num},
                     success : function (data) {
 
                     },

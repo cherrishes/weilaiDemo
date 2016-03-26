@@ -22,6 +22,12 @@
             text-align: center;
             color: red;
         }
+        .ui-success-box{
+            text-align: center;
+            color: chartreuse;
+            font-size: 15px;
+            font-weight: 600;
+        }
         [class*=icono-][class*=Circle]{
             border-radius: 50%;
             width: 23px;
@@ -53,12 +59,14 @@
         <header class="wrapper text-center">
           <strong>Sign in to get more</strong>
         </header>
-          <form method="post">
+          {{ suc_msg|safe }}
+
+          <form method="post" action="/login">
           <div class="form-group">
-            <input type="email" placeholder="Email" class="form-control rounded input-lg text-center no-border" name="user_name">
+            <input type="email" placeholder="Email" class="form-control rounded input-lg text-center no-border" name="user_name" required>
           </div>
           <div class="form-group">
-             <input type="password" placeholder="Password" class="form-control rounded input-lg text-center no-border" name="password">
+             <input type="password" placeholder="Password" class="form-control rounded input-lg text-center no-border" name="password" required>
           </div>
           <button id="BtnSave" type="submit" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded"><i class="icono-caretRightCircle"></i><span class="m-r-n-lg">Sign in</span></button>
           {{ msg|safe }}
