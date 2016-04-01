@@ -179,11 +179,16 @@ def deal_plan(request):
 
 
 @csrf_exempt
-# @login_required
+@login_required
 def detail(request):
     """
     任务详情
     :param request:
     :return:
     """
+    plan_id = request.GET.get('plan_id', '')
+    try:
+        p = Plan.objects.get(plan_id=plan_id)
+    except Exception as e:
+        print(e)
     return render(request, 'home/detail.html', locals())

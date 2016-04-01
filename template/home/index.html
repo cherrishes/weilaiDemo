@@ -129,7 +129,7 @@
             <li>
                 <input type="checkbox" name="checkbox" class="item-choose">
 
-                <div class="item-inner">
+                <div class="item-inner" data="{{ i.plan_id }}">
                   <div class="item-title-row">
                     <div class="item-title">{{ i.plan_msg }}</div>
                       {% if i.plan_type == 1 %}
@@ -161,7 +161,7 @@
             <li>
                 <input type="checkbox" name="checkbox" class="item-choose" checked disabled>
 
-                <div class="item-inner dealed">
+                <div class="item-inner dealed" data="{{ i.plan_id }}">
                   <div class="item-title-row">
                     <div class="item-title">{{ i.plan_msg }}</div>
                       {% if i.plan_type == 1 %}
@@ -293,6 +293,9 @@
             }
 
         });
+        $(".item-inner").bind('tap', function(){
+            window.location.href='/detail?plan_id='+$(this).attr('data')
+        })
 
     })
     </script>
