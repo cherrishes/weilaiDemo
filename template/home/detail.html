@@ -38,6 +38,49 @@
             margin-right: 5px;
             color: #ccc;
         }
+
+        .popup-cover{
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 2000;
+            text-align: center;
+            display: none;
+        }
+        .cover{
+            opacity: 0.3;
+        }
+        .fast-transition{
+            margin-top: 40%;
+            width: 90%;
+            background: #fff;
+            margin-left: auto;
+            margin-right: auto;
+            height: 245px;
+        }
+        .popup-header{
+            text-align: right;
+            padding-right: 11px;
+            font-size: 20px;
+        }
+        .show{
+            display: block;
+        }
+        .urgency li {
+            display: -webkit-box;
+            height: 40px;
+            line-height: 40px;
+        }
+        .urgency-em-check{
+            padding-left: 150px;
+            background: url({% static 'img/Ok.png' %}) center no-repeat;
+            background-size: contain;
+        }
+        .urgency li b{
+            padding-right: 10px;
+            color: #ccc;
+        }
     </style>
 </head>
 <body>
@@ -77,7 +120,7 @@
         <div class="list-block">
           <ul>
             <li>
-              <a href="#" class="item-link item-content">
+              <a href="javascript:void(myfun())" class="item-link item-content">
                 <div class="item-media"><i class="icon icon-star"></i></div>
                 <div class="item-inner">
                   <div class="item-title">优先级</div>
@@ -118,11 +161,34 @@
 </div>
 </div>
 </div>
+
+<div class="popup-cover">
+        <div class="fast-transition">
+            <div class="popup-header">
+                    <a class="popup-close close">×</a>
+
+            </div>
+            <ul class="urgency">
+                <li class="item-urgency"><b style="color: #FF0033">!!!</b>十万火急<em class="item-em"></em></li>
+                <li class="item-urgency"><b><label style="color: #FF9900">!!</label>!</b>优先处理<em class="item-em"></em></li>
+                <li class="item-urgency"><b><label style="color: #FFFF33">!</label>!!</b>正常处理<em class="item-em"></em></li>
+                <li class="item-urgency"><b>!!!</b>有空再看<em class="item-em"></em></li>
+            </ul>
+        </div>
+
+    </div>
 <script src="{% static 'js/zepto.merge.min.js' %}"></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.js' charset='utf-8'></script>
 <script>
-
+    function myfun(){
+       $(".page-group").addClass('cover');
+        $('.popup-cover').addClass('show');
+        $(".close").bind('tap', function(){
+            $('.popup-cover').removeClass('show');
+            $(".page-group").removeClass('cover');
+        });
+    }
     $(function(){
         $("#datetime-picker").datetimePicker({
               toolbarTemplate: '<header class="bar bar-nav">\
@@ -137,6 +203,10 @@
         $("#item-picker-time").bind('touchend', function(){
             $("#datetime-picker").click();
             $("#datetime-picker").removeClass('page-date-in-cover')
+        })
+        $(".item-urgency").bind('tap', function(){
+            $(".item-em").removeClass('urgency-em-check');
+            $(this).children('em').addClass('urgency-em-check');
         })
     })
 </script>
